@@ -42,10 +42,44 @@ export default function Home() {
                     <div className="w-[1440px] flex flex-col gap-[48px] items-center!">
                         <h2 className="text-[4.2rem] font-[700] leading-[100%] text-[#FFFFFF]">How It Works</h2>
                         <div className="flex gap-[30px]">
-                <Card bg="#251B03" text="See live updates of deliveries and customer feedback." title="Upload Orders" img="/images/Home/Rectangle 17.svg"/>
-                <Card bg="#543200" text="Accept deliveries, update statuses, and optimize routes." title="Manage Deliveries" img="/images/Home/Rectangle 17 (1).svg"/>
-                <Card bg="#251B03" text="View detailed analytics on store and courier activities." title="Monitor Performance" img="/images/Home/Rectangle 17 (2).svg"/>
-
+                            <Card bg="#251B03" text="See live updates of deliveries and customer feedback." title="Upload Orders" img="/images/Home/Rectangle 17.svg" />
+                            <Card bg="#543200" text="Accept deliveries, update statuses, and optimize routes." title="Manage Deliveries" img="/images/Home/Rectangle 17 (1).svg" />
+                            <Card bg="#251B03" text="View detailed analytics on store and courier activities." title="Monitor Performance" img="/images/Home/Rectangle 17 (2).svg" />
+                        </div>
+                    </div>
+                </section>
+                <section className="p-[166px_0] w-[100%] flex justify-center">
+                    <div className="w-[1440px] flex flex-col gap-[76px] items-center!">
+                        <div className="flex flex-col gap-[76px] w-[1080px]">
+                            <div className="flex flex-col min-h-[614px] gap-[49px] relative p-[80px] w-[100%] bg-[#251B03] rounded-[14px] items-start">
+                                <div className="flex flex-col max-w-[600px]">
+                                    <h3 className="text-[2.6rem] font-[300] leading-[100%] text-[#FFD451]">For Stores</h3>
+                                    <h1 className="text-[6.4rem] font-[900] leading-[88px] text-[#FFFFFF]">Streamline Your Orders with Ease</h1>
+                                    <p className="text-[1.4rem] font-[300] text-[rgba(255,255,255,0.6)] max-w-[317px] leading-[160%]">Upload, manage, and track all your orders effortlessly. Stay in control and ensure smooth deliveries to your customers with our intuitive platform.</p>
+                                </div>
+                                <button className="p-[16px_30px] bg-[#543200] rounded-[14px] border-[0.5px] border-[#FFFFFF33] border-solid font-[500] text-[1.4rem] leading-[100%] text-[#FF9900] cursor-pointer shadow-[0_0_27px_0_#00000040]">Get Started</button>
+                                <img src="/images/Home/Rectangle 19.svg" className="absolute left-[200px] top-[-60px] w-[873px]" alt="" />
+                            </div>
+                            <div className="flex flex-col min-h-[614px] gap-[49px] relative p-[80px] w-[100%] bg-[#3B2900] rounded-[14px] overflow-hidden items-end">
+                                <div className="flex flex-col max-w-[600px] gap-[49px] items-start ml-[340px]">
+                                    <div className="flex flex-col">
+                                        <h3 className="text-[2.6rem] font-[300] leading-[100%] text-[#FFD451]">For Couriers</h3>
+                                        <h1 className="text-[6.4rem] font-[900] leading-[88px] text-[#FFFFFF]">Deliver Smarter, Faster, and Safer</h1>
+                                        <p className="text-[1.4rem] font-[300] text-[rgba(255,255,255,0.6)] max-w-[317px] leading-[160%]">Track your deliveries in real-time, optimize routes, and update statuses—all in one place. Deliver with ease and accuracy, every time.</p>
+                                    </div>
+                                    <button className="p-[16px_30px] bg-[#543200] rounded-[14px] border-[0.5px] border-[#FFFFFF33] border-solid font-[500] text-[1.4rem] leading-[100%] text-[#FF9900] cursor-pointer shadow-[0_0_27px_0_#00000040]">Get Started</button>
+                                </div>
+                                <img src="/images/Home/Rectangle 18.svg" className="absolute w-[767px] left-[-100px] top-[235px] h-[379px]" alt="" />
+                            </div>
+                            <div className="flex flex-col min-h-[614px] gap-[49px] relative p-[80px] w-[100%] bg-[#251B03] rounded-[14px] items-start">
+                                <div className="flex flex-col max-w-[700px]">
+                                    <h3 className="text-[2.6rem] font-[300] leading-[100%] text-[#FFD451]">For Admins</h3>
+                                    <h1 className="text-[6.4rem] font-[900] leading-[88px] text-[#FFFFFF]">Manage Operations from One Dashboard</h1>
+                                    <p className="text-[1.4rem] font-[300] text-[rgba(255,255,255,0.6)] max-w-[317px] leading-[160%]">Monitor, assign, and oversee deliveries across multiple stores and couriers. Keep your operations running smoothly with complete control and real-time updates.</p>
+                                </div>
+                                <button className="p-[16px_30px] bg-[#543200] rounded-[14px] border-[0.5px] border-[#FFFFFF33] border-solid font-[500] text-[1.4rem] leading-[100%] text-[#FF9900] cursor-pointer shadow-[0_0_27px_0_#00000040]">Get Started</button>
+                                <img src="/images/Home/Rectangle 19 (1).svg" className="absolute right-[0] bottom-[70px]" alt="" />
+                            </div>
                         </div>
                     </div>
                 </section>
