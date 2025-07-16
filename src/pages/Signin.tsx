@@ -4,9 +4,7 @@ export default function Signin() {
 
   const { handleSubmit, register } = useOutletContext<TForm>()
 
-  const onSubmit = (data: any) => {
-    console.log(data)
-  }
+  const onSubmit = () => {}
 
   return (
     <div className="flex flex-col gap-[50px] items-center p-[70px]">
@@ -21,7 +19,7 @@ export default function Signin() {
           <input type="text" {...register("password")} id="password" className="w-[100%] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! p-[8px_16px] outline-none rounded-[5px] border-[0.7px] border-solid border-[#0033081F] bg-[#111111]" />
         </div>
       </form>
-      <button className={`p-[12px_24px] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! bg-[#251B03] rounded-[8px] cursor-pointer`} onClick={() => console.log("e")}>Sign In</button>
+      <button className={`p-[12px_24px] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! bg-[#251B03] rounded-[8px] cursor-pointer`}>Sign In</button>
     </div>
   )
 }
