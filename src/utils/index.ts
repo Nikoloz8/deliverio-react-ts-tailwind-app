@@ -10,7 +10,7 @@ export default function index() {
     }
 
     const HandleLoginButton = () => {
-        localStorage.setItem("SL", "Login")
+        localStorage.setItem("SL", "SignIn")
         navigate("/role-choose")
     }
 
