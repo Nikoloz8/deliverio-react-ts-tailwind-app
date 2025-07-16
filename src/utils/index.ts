@@ -1,8 +1,9 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export default function index() {
 
     const navigate = useNavigate()
+    const location = useLocation().pathname 
 
     const HandleSignUpButton = () => {
         localStorage.setItem("SL", "SignUp")
@@ -19,6 +20,10 @@ export default function index() {
         return SL
     }
 
+    const getRole = () => {
+        return location.split("/")[2]
+    }
 
-    return { HandleLoginButton, HandleSignUpButton, HandleGetSL}
+
+    return { HandleLoginButton, HandleSignUpButton, HandleGetSL, getRole }
 }

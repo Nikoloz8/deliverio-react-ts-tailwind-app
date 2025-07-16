@@ -1,15 +1,34 @@
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, useParams } from "react-router-dom"
 
 export default function Signup() {
     const { handleSubmit, register, watch } = useOutletContext<TForm>()
 
-    const onSubmit = () => {}
+    const onSubmit = () => { }
+    
+    const { role } = useParams()
+    const handleSignUp = () => {
 
-    console.log(watch())
+        const user = {
+            id: Math.random(),
+            name: watch("name"),
+            email: watch("email"),
+            password: watch("password"),
+            contactInfo: watch("contactInfo"),
+            role
+        }
+
+        const users = localStorage.getItem("users")
+        if (!users) {
+            localStorage.setItem("users", "[]")
+        }
+        const parsedUsers = JSON.parse(users!)
+        parsedUsers.push(user)
+        localStorage.setItem("users", JSON.stringify(parsedUsers))
+    }
 
     return (
         <div className="flex flex-col gap-[50px] items-center p-[70px]">
-            <h1 className="font-[300] text-[5rem] text-[#FFFFFF] leading-[100%]">Sign in</h1>
+            <h1 className="font-[300] text-[5rem] text-[#FFFFFF] leading-[100%]">Sign up</h1>
             <form onClick={handleSubmit(onSubmit)} action="" className="flex flex-col gap-[17px] w-[380px]">
                 <div className="flex flex-col gap-[8px]">
                     <label htmlFor="email/phone" className="text-[1.4rem] font-[300] leading-[100%] text-[#FFFFFF] ">Name</label>
@@ -28,7 +47,7 @@ export default function Signup() {
                     <input type="text" {...register("contactInfo")} id="password" className="w-[100%] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! p-[8px_16px] outline-none rounded-[5px] border-[0.7px] border-solid border-[#0033081F] bg-[#111111]" />
                 </div>
             </form>
-            <button className={`p-[12px_24px] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! bg-[#251B03] rounded-[8px] cursor-pointer`}>Sign In</button>
+            <button onClick={() => handleSignUp()} className={`p-[12px_24px] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! bg-[#251B03] rounded-[8px] cursor-pointer`}>Sign Up</button>
         </div>
     )
 }

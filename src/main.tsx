@@ -4,9 +4,11 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home'
 import RoleChoose from './pages/RoleChoose'
-import Layout from './layouts/Layout'
+import Layout from './layouts/MainLayout'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
+import PanelsLayout from './layouts/PanelsLayout'
+import StoreOrders from './components/Panels/StoreOrders'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,16 @@ const router = createBrowserRouter([
       {
         element: <Signup />,
         path: '/signup/:role'
+      }
+    ]
+  },
+  {
+    element: <PanelsLayout />,
+    path: '/panels',
+    children: [
+      {
+        element: <StoreOrders />,
+        path: '/panels/admin/Store Orders'
       }
     ]
   }
