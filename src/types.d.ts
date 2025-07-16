@@ -8,3 +8,9 @@ type TGetStartedCard = {
     bg?: string
     mw?: string
 }
+
+type TForm = {
+    register: UseFormRegister<FieldValues>
+    watch: UseFormWatch<FieldValues>
+    handleSubmit: UseFormHandleSubmit<FieldValues, FieldValues>
+}
