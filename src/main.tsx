@@ -9,6 +9,7 @@ import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import PanelsLayout from './layouts/PanelsLayout'
 import StoreOrders from './components/Panels/StoreOrders'
+import ManagePackages from './components/Panels/ManagePackages'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         element: <StoreOrders />,
         path: '/panels/admin/Store Orders'
+      },
+      {
+        element: <ManagePackages />,
+        path: '/panels/admin/Manage Packages'
       }
     ]
   }
