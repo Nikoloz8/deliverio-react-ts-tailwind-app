@@ -2,7 +2,7 @@ export default function ManagePackages() {
     return (
         <div className="p-[20px] rounded-[6px] bg-[#111111] mt-[24px]">
             <h1 className="text-[1.8rem] font-[500] leading-[100%] text-[#FFFFFF] ">Manage Packages</h1>
-            <table className="w-[807px] ml-[30px] mt-[43px]">
+            <table className="w-[660px] ml-[30px] mt-[43px] mr-[90px]!">
                 <thead className="bg-[rgba(133,133,133,0.3)]">
                     <tr className="w-[100%]">
                         <th className="rounded-l-[6px] p-[12px_0] text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">Order #</th>
@@ -39,8 +39,37 @@ export default function ManagePackages() {
                             </div>
                         </td>
                     </tr>
+                    <tr className="h-[16px]">   </tr>
                 </tbody>
             </table>
-
+            <div className="flex justify-between">
+                <div className="flex gap-[6px]">
+                    <button className="p-[8px_16px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#292929] rounded-[8px]">
+                        <img src="/images/Home/Polygon 1 (1).svg" className="rotate-[90deg] mt-[1px]" alt="" />
+                        Prev
+                    </button>
+                    <button className="p-[8px_16px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#343434] rounded-[8px]">
+                        Next
+                        <img src="/images/Home/Polygon 1 (1).svg" className="rotate-[-90deg] mt-[1px]" alt="" />
+                    </button>
+                </div>
+                <div className="flex gap-[16px] items-center">
+                    <h5 className="text-[1.4rem] leading-[100%] text-[#FFFFFF] font-[300]">Status</h5>
+                    <div className="flex gap-[32px]">
+                        <div className="flex gap-[6px] items-center">
+                            <span className="block w-[24px] h-[24px] rounded-[8px] bg-[#00AB55]"></span>
+                            <h5 className="text-[1.4rem] leading-[100%] text-[#00AB55] font-[300]">Completed</h5>
+                        </div>
+                        <div className="flex gap-[6px] items-center">
+                            <span className="block w-[24px] h-[24px] rounded-[8px] bg-[#FF9900]"></span>
+                            <h5 className="text-[1.4rem] leading-[100%] text-[#FF9900] font-[300]">Denied once</h5>
+                        </div>
+                        <div className="flex gap-[6px] items-center">
+                            <span className="block w-[24px] h-[24px] rounded-[8px] bg-[#FF0000]"></span>
+                            <h5 className="text-[1.4rem] leading-[100%] text-[#FF0000] font-[300]">Denied Twice</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>)
 }
