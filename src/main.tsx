@@ -10,6 +10,9 @@ import Signin from './pages/Signin'
 import PanelsLayout from './layouts/PanelsLayout'
 import StoreOrders from './components/Panels/StoreOrders'
 import ManagePackages from './components/Panels/ManagePackages'
+import GPS from './components/Panels/GPS'
+import Map from './components/Panels/Map'
+import UploadOrder from './components/Panels/UploadOrder'
 
 const router = createBrowserRouter([
   {
@@ -45,7 +48,27 @@ const router = createBrowserRouter([
       {
         element: <ManagePackages />,
         path: '/panels/admin/Manage Packages'
-      }
+      },
+      {
+        element: <GPS />,
+        path: '/panels/admin/GPS'
+      },
+      {
+        element: <ManagePackages />,
+        path: '/panels/courier/My Packages'
+      },
+      {
+        element: <Map />,
+        path: '/panels/courier/Map'
+      },
+      {
+        element: <StoreOrders />,
+        path: '/panels/store/My Orders'
+      },
+      {
+        element: <UploadOrder />,
+        path: '/panels/store/Upload Order'
+      },
     ]
   }
 ])
