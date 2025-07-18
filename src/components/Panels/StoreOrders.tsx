@@ -1,7 +1,19 @@
 export default function StoreOrders() {
     return (
         <div className="p-[20px] rounded-[6px] bg-[#111111] mt-[24px]">
-            <h1 className="text-[1.8rem] font-[500] leading-[100%] text-[#FFFFFF] ">Store Orders</h1>
+            <div className="flex justify-between items-center">
+                <h1 className="text-[1.8rem] font-[500] leading-[100%] text-[#FFFFFF] ">Store Orders</h1>
+                <div className="flex gap-[10px]">
+                    <button className="p-[8px_20px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#343434] rounded-[8px]">
+                        Filters
+                        <img src="/images/Home/mynaui_filter.svg" alt="" />
+                    </button>
+                    <button className="p-[8px_20px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#343434] rounded-[8px]">
+                        Sort by
+                        <img src="/images/Home/Polygon 1 (1).svg" className="mt-[1px]" alt="" />
+                    </button>
+                </div>
+            </div>
             <table className="w-[807px] mt-[17px]">
                 <thead className="bg-[rgba(133,133,133,0.3)]">
                     <tr>
@@ -22,8 +34,19 @@ export default function StoreOrders() {
                             </span>
                         </td>
                     </tr>
+                    <tr className="h-[21px]"></tr>
                 </tbody>
             </table>
+            <div className="flex gap-[6px]">
+                <button className="p-[8px_16px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#292929] rounded-[8px]">
+                    <img src="/images/Home/Polygon 1 (1).svg" className="rotate-[90deg] mt-[1px]" alt="" />
+                    Prev
+                </button>
+                <button className="p-[8px_16px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#343434] rounded-[8px]">
+                    Next
+                    <img src="/images/Home/Polygon 1 (1).svg" className="rotate-[-90deg] mt-[1px]" alt="" />
+                </button>
+            </div>
 
         </div>)
 }
