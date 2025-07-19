@@ -1,14 +1,29 @@
 import { useState } from "react";
+import * as XLSX from "xlsx";
 
 export default function UploadOrder() {
 
-  const [fileName, setFileName] = useState("Choose File...")
+  const [fileName, setFileName] = useState("Choose File...");
+  const [excelData, setExcelData] = useState<any[]>([])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      setFileName(e.target.files[0].name)
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      setFileName(file.name)
+      reader.onload = (event) => {
+        const data = new Uint8Array(event.target?.result as ArrayBuffer)
+        const workbook = XLSX.read(data, { type: "array" })
+        const sheetName = workbook.SheetNames[0]
+        const worksheet = workbook.Sheets[sheetName]
+        const jsonData = XLSX.utils.sheet_to_json(worksheet)
+        setExcelData(jsonData)
+      }
+
+      reader.readAsArrayBuffer(file)
     } else {
       setFileName("Choose File...")
+      setExcelData([])
     }
   }
 
