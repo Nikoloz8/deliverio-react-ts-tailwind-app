@@ -4,7 +4,6 @@ import * as XLSX from "xlsx";
 export default function UploadOrder() {
 
   const [fileName, setFileName] = useState("Choose File...");
-  const [excelData, setExcelData] = useState<any[]>([])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -17,13 +16,20 @@ export default function UploadOrder() {
         const sheetName = workbook.SheetNames[0]
         const worksheet = workbook.Sheets[sheetName]
         const jsonData = XLSX.utils.sheet_to_json(worksheet)
-        setExcelData(jsonData)
+        const orders = localStorage.getItem("orders")
+        if (!orders) {
+          localStorage.setItem("orders", "[]")
+        }
+        const parsedOrders = JSON.parse(orders || "[]")
+        parsedOrders.push(...jsonData)
+        localStorage.setItem("orders", JSON.stringify(parsedOrders))
       }
 
       reader.readAsArrayBuffer(file)
+
+
     } else {
       setFileName("Choose File...")
-      setExcelData([])
     }
   }
 
