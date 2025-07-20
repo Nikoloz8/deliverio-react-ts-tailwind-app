@@ -5,28 +5,56 @@ export default function StoreOrders() {
     const [orders, setOrders] = useState<any[]>([])
     const [countPages, setCountPages] = useState(1)
     const [pageOrders, setPageOrders] = useState<any[]>([])
+    const [storesArr, setStoresArr] = useState<any[]>([])
+    const [filterStore, setFilterStore] = useState<any>([])
 
     const itemsPerPage = 6
+
 
     useEffect(() => {
         const stored = JSON.parse(localStorage.getItem("orders")!) || []
         setOrders(stored)
+
+        const uniqueStores = new Set<string>()
+        stored.forEach((order: any) => {
+            if (order.მაღაზია) {
+                uniqueStores.add(order.მაღაზია)
+            }
+        })
+
+        setStoresArr(Array.from(uniqueStores))
     }, [])
+
+    const filteredOrders = filterStore.length
+        ? orders.filter((order) => filterStore.includes(order.მაღაზია))
+        : orders
+
+    const totalPages = Math.ceil(filteredOrders.length / itemsPerPage)
 
     useEffect(() => {
         const startIndex = (countPages - 1) * itemsPerPage
-        const newPage = orders.slice(startIndex, startIndex + itemsPerPage)
+        const newPage = filteredOrders.slice(startIndex, startIndex + itemsPerPage)
         setPageOrders(newPage)
-    }, [countPages, orders])
+    }, [countPages, filteredOrders])
 
-    const totalPages = Math.ceil(orders.length / itemsPerPage)
+    const [showFilters, setShowFilters] = useState(false)
+
 
     return (
         <div className="p-[20px] rounded-[6px] bg-[#111111] mt-[24px]">
             <div className="flex justify-between items-center">
                 <h1 className="text-[1.8rem] font-[500] leading-[100%] text-[#FFFFFF] ">Store Orders</h1>
-                <div className="flex gap-[10px]">
-                    <button className="p-[8px_20px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#343434] rounded-[8px]">
+                <div className="flex gap-[10px] relative">
+                    <div className={`absolute transition-all duration-500 max-w-[200px] w-[200px] left-[-210px] p-[14px] bg-[#292929] border-[0.8px] border-solid border-[#585858] rounded-[8px] flex flex-col gap-[12px] shadow-[0_0_4px_0_#00000040] ${!showFilters && "opacity-0"}`}>
+                        <h5 className="font-[300] text-[1.4rem] leading-[100%] text-[#ADADAD]">Store</h5>
+                        {storesArr.map((e, i) => {
+                            return <h5 key={i} onClick={() => filterStore.includes(e) ? setFilterStore(filterStore.filter((el: string) => el !== e)) : setFilterStore([...filterStore, e])} className="font-[300] cursor-pointer text-[1.4rem] flex gap-[6px] leading-[100%] text-[#FFFFFF]">
+                                {filterStore.includes(e) && <img src="/images/Home/Group 40674.svg" />}
+                                {e}
+                            </h5>
+                        })}
+                    </div>
+                    <button onClick={() => setShowFilters(!showFilters)} className="p-[8px_20px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#343434] rounded-[8px]">
                         Filters
                         <img src="/images/Home/mynaui_filter.svg" alt="" />
                     </button>
