@@ -7,6 +7,9 @@ export default function StoreOrders() {
     const [pageOrders, setPageOrders] = useState<any[]>([])
     const [storesArr, setStoresArr] = useState<any[]>([])
     const [filterStore, setFilterStore] = useState<any>([])
+    const [sortBy, setSortBy] = useState("")
+    const sortOptions = ["Date", "Store", "Status"]
+
 
     const itemsPerPage = 6
 
@@ -25,19 +28,20 @@ export default function StoreOrders() {
         setStoresArr(Array.from(uniqueStores))
     }, [])
 
-    const filteredOrders = filterStore.length
-        ? orders.filter((order) => filterStore.includes(order.მაღაზია))
-        : orders
+    const filteredOrders = filterStore.length ? orders.filter((order) => filterStore.includes(order.მაღაზია)) : orders
+
+    const sortedOrders = sortBy === "Date" ? [...filteredOrders].sort((a, b) => new Date(a.თარიღი).getTime() - new Date(b.თარიღი).getTime()) : sortBy === "Store" ? [...filteredOrders].sort((a, b) => a.მაღაზია.localeCompare(b.მაღაზია)) : sortBy === "Status" ? [...filteredOrders].sort((a, b) => a.სტატუსი.localeCompare(b.სტატუსი)) : [...filteredOrders]
 
     const totalPages = Math.ceil(filteredOrders.length / itemsPerPage)
 
     useEffect(() => {
         const startIndex = (countPages - 1) * itemsPerPage
-        const newPage = filteredOrders.slice(startIndex, startIndex + itemsPerPage)
+        const newPage = sortedOrders.slice(startIndex, startIndex + itemsPerPage)
         setPageOrders(newPage)
-    }, [countPages, filteredOrders])
+    }, [countPages, filteredOrders, sortedOrders])
 
     const [showFilters, setShowFilters] = useState(false)
+    const [showSorts, setShowSorts] = useState(false)
 
 
     return (
@@ -46,9 +50,9 @@ export default function StoreOrders() {
                 <h1 className="text-[1.8rem] font-[500] leading-[100%] text-[#FFFFFF] ">Store Orders</h1>
                 <div className="flex gap-[10px] relative">
                     <div className={`absolute transition-all duration-500 max-w-[200px] w-[200px] left-[-210px] p-[14px] bg-[#292929] border-[0.8px] border-solid border-[#585858] rounded-[8px] flex flex-col gap-[12px] shadow-[0_0_4px_0_#00000040] ${!showFilters && "opacity-0"}`}>
-                        <h5 className="font-[300] text-[1.4rem] leading-[100%] text-[#ADADAD]">Store</h5>
+                        <h5 className="font-[300] pl-[20px] text-[1.4rem] leading-[100%] text-[#ADADAD]">Store</h5>
                         {storesArr.map((e, i) => {
-                            return <h5 key={i} onClick={() => filterStore.includes(e) ? setFilterStore(filterStore.filter((el: string) => el !== e)) : setFilterStore([...filterStore, e])} className="font-[300] cursor-pointer text-[1.4rem] flex gap-[6px] leading-[100%] text-[#FFFFFF]">
+                            return <h5 key={i} onClick={() => filterStore.includes(e) ? setFilterStore(filterStore.filter((el: string) => el !== e)) : setFilterStore([...filterStore, e])} className={`font-[300] cursor-pointer text-[1.4rem] flex gap-[6px] leading-[100%] text-[#FFFFFF] ${!filterStore.includes(e) && "pl-[20px]"}`}>
                                 {filterStore.includes(e) && <img src="/images/Home/Group 40674.svg" />}
                                 {e}
                             </h5>
@@ -58,7 +62,15 @@ export default function StoreOrders() {
                         Filters
                         <img src="/images/Home/mynaui_filter.svg" alt="" />
                     </button>
-                    <button className="p-[8px_20px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#343434] rounded-[8px]">
+                    <div className={`absolute transition-all duration-500 p-[8px_28px_8px_8px] bg-[#292929] border-[0.8px] border-solid border-[#585858] rounded-[8px] left-[210px] flex flex-col gap-[12px] shadow-[0_0_4px_0_#00000040] ${!showSorts && "opacity-0"}`}>
+                        {sortOptions.map((e, i) => {
+                            return <h5 key={i} onClick={() => sortBy === e ? setSortBy("") : setSortBy(e)} className={`font-[300] cursor-pointer text-[1.4rem] flex gap-[6px] leading-[100%] text-[#FFFFFF] ${sortBy !== e && "pl-[20px]"}`}>
+                                {sortBy === e && <img src="/images/Home/Group 40674.svg" />}
+                                {e}
+                            </h5>
+                        })}
+                    </div>
+                    <button onClick={() => setShowSorts(!showSorts)} className="p-[8px_20px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#343434] rounded-[8px]">
                         Sort by
                         <img src="/images/Home/Polygon 1 (1).svg" className="mt-[1px]" alt="" />
                     </button>
@@ -76,7 +88,7 @@ export default function StoreOrders() {
                 <tbody>
                     {pageOrders.map((order: any, index: number) => {
                         return <tr key={index} className="border-b-[1px] border-solid border-[#E0E6ED]">
-                            <td className="p-[13px_0_13px_40px] text-center font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF]">#{index}</td>
+                            <td className="p-[13px_0_13px_40px] text-center font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF]">#{filteredOrders.findIndex(item => item === order)}</td>
                             <td className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order.თარიღი}</td>
                             <td className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order.მაღაზია}</td>
                             <td className="text-center pr-[40px]">
