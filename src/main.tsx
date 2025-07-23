@@ -13,6 +13,7 @@ import ManagePackages from './components/Panels/ManagePackages'
 import GPS from './components/Panels/GPS'
 import Map from './components/Panels/Map'
 import UploadOrder from './components/Panels/UploadOrder'
+import OrderDetails from './components/Panels/OrderDetails'
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         element: <StoreOrders />,
         path: '/panels/admin/Store Orders'
+      },
+      {
+        element: <OrderDetails />,
+        path: '/panels/admin/:orderIndex'
       },
       {
         element: <ManagePackages />,

@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { useNavigate, useOutletContext } from "react-router-dom"
 
 export default function StoreOrders() {
 
-    const [orders, setOrders] = useState<any[]>([])
+    const { orders, setOrders } = useOutletContext<TPanelsLayoutOutletContext>()
+
     const [countPages, setCountPages] = useState(1)
     const [pageOrders, setPageOrders] = useState<any[]>([])
     const [storesArr, setStoresArr] = useState<any[]>([])
@@ -10,6 +12,7 @@ export default function StoreOrders() {
     const [sortBy, setSortBy] = useState("")
     const sortOptions = ["Date", "Store", "Status"]
 
+    const navigate = useNavigate()
 
     const itemsPerPage = 6
 
@@ -30,7 +33,10 @@ export default function StoreOrders() {
 
     const filteredOrders = filterStore.length ? orders.filter((order) => filterStore.includes(order.მაღაზია)) : orders
 
-    const sortedOrders = sortBy === "Date" ? [...filteredOrders].sort((a, b) => new Date(a.თარიღი).getTime() - new Date(b.თარიღი).getTime()) : sortBy === "Store" ? [...filteredOrders].sort((a, b) => a.მაღაზია.localeCompare(b.მაღაზია)) : sortBy === "Status" ? [...filteredOrders].sort((a, b) => a.სტატუსი.localeCompare(b.სტატუსი)) : [...filteredOrders]
+
+    const sortedOrders = useMemo(() => {
+        return sortBy === "Date" ? [...filteredOrders].sort((a, b) => new Date(a.თარიღი).getTime() - new Date(b.თარიღი).getTime()) : sortBy === "Store" ? [...filteredOrders].sort((a, b) => a.მაღაზია.localeCompare(b.მაღაზია)) : sortBy === "Status" ? [...filteredOrders].sort((a, b) => a.სტატუსი.localeCompare(b.სტატუსი)) : [...filteredOrders]
+    }, [filteredOrders, sortBy])
 
     const totalPages = Math.ceil(filteredOrders.length / itemsPerPage)
 
@@ -87,7 +93,7 @@ export default function StoreOrders() {
                 </thead>
                 <tbody>
                     {pageOrders.map((order: any, index: number) => {
-                        return <tr key={index} className="border-b-[1px] border-solid border-[#E0E6ED]">
+                        return <tr key={index} onClick={() => navigate(`/panels/admin/${orders.findIndex(e => e === order)}`)} className="cursor-pointer border-b-[1px] border-solid border-[#E0E6ED]">
                             <td className="p-[13px_0_13px_40px] text-center font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF]">#{filteredOrders.findIndex(item => item === order)}</td>
                             <td className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order.თარიღი}</td>
                             <td className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order.მაღაზია}</td>

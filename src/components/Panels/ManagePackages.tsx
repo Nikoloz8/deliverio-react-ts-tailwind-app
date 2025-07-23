@@ -39,7 +39,7 @@ export default function ManagePackages() {
                             </div>
                         </td>
                     </tr>
-                    <tr className="h-[16px]">   </tr>
+                    <tr className="h-[16px]"></tr>
                 </tbody>
             </table>
             <div className="flex justify-between">

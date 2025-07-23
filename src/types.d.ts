@@ -14,3 +14,8 @@ type TForm = {
     watch: UseFormWatch<FieldValues>
     handleSubmit: UseFormHandleSubmit<FieldValues, FieldValues>
 }
+
+type TPanelsLayoutOutletContext = {
+    orders: any[]
+    setOrders: React.Dispatch<React.SetStateAction<any[]>>
+} 
