@@ -1,50 +1,16 @@
-import { useEffect, useMemo, useState } from "react"
+import { useState } from "react"
 import { useNavigate, useOutletContext } from "react-router-dom"
+import NextPrevButtons from "./NextPrevButtons"
 
 export default function StoreOrders() {
 
-    const { orders, setOrders } = useOutletContext<TPanelsLayoutOutletContext>()
+    const { orders, storesArr, filterStore, setFilterStore, sortBy, setSortBy, pageOrders, filteredOrders } = useOutletContext<TPanelsLayoutOutletContext>()
 
-    const [countPages, setCountPages] = useState(1)
-    const [pageOrders, setPageOrders] = useState<any[]>([])
-    const [storesArr, setStoresArr] = useState<any[]>([])
-    const [filterStore, setFilterStore] = useState<any>([])
-    const [sortBy, setSortBy] = useState("")
     const sortOptions = ["Date", "Store", "Status"]
 
     const navigate = useNavigate()
 
-    const itemsPerPage = 6
 
-
-    useEffect(() => {
-        const stored = JSON.parse(localStorage.getItem("orders")!) || []
-        setOrders(stored)
-
-        const uniqueStores = new Set<string>()
-        stored.forEach((order: any) => {
-            if (order.მაღაზია) {
-                uniqueStores.add(order.მაღაზია)
-            }
-        })
-
-        setStoresArr(Array.from(uniqueStores))
-    }, [])
-
-    const filteredOrders = filterStore.length ? orders.filter((order) => filterStore.includes(order.მაღაზია)) : orders
-
-
-    const sortedOrders = useMemo(() => {
-        return sortBy === "Date" ? [...filteredOrders].sort((a, b) => new Date(a.თარიღი).getTime() - new Date(b.თარიღი).getTime()) : sortBy === "Store" ? [...filteredOrders].sort((a, b) => a.მაღაზია.localeCompare(b.მაღაზია)) : sortBy === "Status" ? [...filteredOrders].sort((a, b) => a.სტატუსი.localeCompare(b.სტატუსი)) : [...filteredOrders]
-    }, [filteredOrders, sortBy])
-
-    const totalPages = Math.ceil(filteredOrders.length / itemsPerPage)
-
-    useEffect(() => {
-        const startIndex = (countPages - 1) * itemsPerPage
-        const newPage = sortedOrders.slice(startIndex, startIndex + itemsPerPage)
-        setPageOrders(newPage)
-    }, [countPages, filteredOrders, sortedOrders])
 
     const [showFilters, setShowFilters] = useState(false)
     const [showSorts, setShowSorts] = useState(false)
@@ -107,16 +73,6 @@ export default function StoreOrders() {
                     <tr className="h-[21px]"></tr>
                 </tbody>
             </table>
-            <div className="flex gap-[6px]">
-                <button onClick={() => setCountPages((prev) => Math.max(prev - 1, 1))} className="p-[8px_16px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#292929] rounded-[8px]">
-                    <img src="/images/Home/Polygon 1 (1).svg" className="rotate-[90deg] mt-[1px]" alt="" />
-                    Prev
-                </button>
-                <button onClick={() => setCountPages((prev) => prev < totalPages ? prev + 1 : prev)} className="p-[8px_16px] text-[1.2rem] leading-[100%] text-[#FFFFFF] font-[300] flex items-center cursor-pointer gap-[4px] bg-[#343434] rounded-[8px]">
-                    Next
-                    <img src="/images/Home/Polygon 1 (1).svg" className="rotate-[-90deg] mt-[1px]" alt="" />
-                </button>
-            </div>
-
+            <NextPrevButtons />
         </div >)
 }

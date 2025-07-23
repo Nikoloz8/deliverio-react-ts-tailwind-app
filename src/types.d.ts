@@ -18,4 +18,13 @@ type TForm = {
 type TPanelsLayoutOutletContext = {
     orders: any[]
     setOrders: React.Dispatch<React.SetStateAction<any[]>>
+    storesArr: any[]
+    filterStore: any[]
+    setFilterStore: React.Dispatch<React.SetStateAction<any[]>>
+    sortBy: string
+    setSortBy: React.Dispatch<React.SetStateAction<string>>
+    pageOrders: any[]
+    filteredOrders: any[]
+    setCountPages: React.Dispatch<React.SetStateAction<number>>
+    totalPages: number
 } 
