@@ -37,7 +37,10 @@ export default function OrderDetails() {
             </div>
             <div className="p-[20px] rounded-[6px] bg-[#111111] mt-[24px]">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-[1.8rem] font-[500] leading-[100%] text-[#FFFFFF] ">Store Orders</h1>
+                    <h1 onClick={() => navigate("/panels/admin/Store Orders")} className="text-[1.8rem] font-[500] pl-[8px] cursor-pointer leading-[100%] text-[#FFFFFF] flex gap-[12px] items-center">
+                        <img src="/images/Home/Polygon 1 (1).svg" className="rotate-[90deg]" alt="" />
+                        Order Details
+                    </h1>
                 </div>
                 <table className="w-[807px] mt-[17px]">
                     <thead className="bg-[rgba(133,133,133,0.3)]">
@@ -52,10 +55,10 @@ export default function OrderDetails() {
                     <tbody>
                         <tr className="cursor-pointer border-b-[1px] border-solid border-[#E0E6ED]">
                             <td className="p-[13px_0] text-center font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order.მყიდველი}</td>
-                            <td className="text-center font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order["ტელეფონის ნომერი"]}</td>
-                            <td className="text-center font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order.მისამართი}</td>
-                            <td className="text-center font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order.მაღაზია}</td>
-                            <td className="text-center font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF]">
+                            <td className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order["ტელეფონის ნომერი"]}</td>
+                            <td className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order.მისამართი}</td>
+                            <td className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order.მაღაზია}</td>
+                            <td className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">
                                 {order["რაოდენობა * ფასი"]}
                             </td>
                         </tr>
@@ -63,11 +66,11 @@ export default function OrderDetails() {
                     </tbody>
                 </table>
                 <div className="flex flex-col gap-[18px] pl-[16px]">
-                    <div className="flex flex-col gap-[1px]">
+                    <div className="flex flex-col gap-[8px]">
                         <h3 className="font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">Product Details:</h3>
                         <p className="font-[300] text-[1.4rem] leading-[100%] text-[#757575] w-[707px]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type</p>
                     </div>
-                    <div className="flex flex-col gap-[7px]">
+                    <div className="flex flex-col gap-[12px]">
                         <h3 className="font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">Package Status:</h3>
                         <div className="flex justify-between items-center">
                             <div className={`font-[500] p-[10px_32px] ${order.სტატუსი === "Completed" ? "bg-[#0C3F25] text-[#00AB55]" : order.სტატუსი === "In Process" ? "bg-[#292929] text-[#FFFFFF]" : order.სტატუსი === "Cancelled" ? "text-[#FF0000] bg-[#580C0C]" : ""} rounded-[35px] text-[1.3rem] leading-[100%]`}>{order.სტატუსი === "Completed" ? "Delivered" : order.სტატუსი}</div>
