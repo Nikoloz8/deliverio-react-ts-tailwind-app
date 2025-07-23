@@ -47,7 +47,7 @@ export default function PanelsLayout() {
             <Header />
             <div className="flex w-[1210px] justify-between p-[35px_40px]">
                 <Navigation />
-                <Outlet context={{ orders, storesArr, filterStore, setFilterStore, sortBy, setSortBy, pageOrders, filteredOrders, setCountPages, totalPages }} />
+                <Outlet context={{ orders, storesArr, filterStore, setFilterStore, sortBy, setSortBy, pageOrders, filteredOrders, setCountPages, totalPages, setOrders }} />
             </div>
         </div>
     )
