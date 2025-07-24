@@ -1,9 +1,34 @@
 import { useOutletContext } from "react-router-dom"
 import NextPrevButtons from "./NextPrevButtons"
+import { useState } from "react"
 
 export default function ManagePackages() {
 
-    const { pageOrders, filteredOrders } = useOutletContext<TPanelsLayoutOutletContext>()
+    const { pageOrders, filteredOrders, setOrders } = useOutletContext<TPanelsLayoutOutletContext>()
+
+    const getCouriers = () => {
+        const users = localStorage.getItem("users")
+        if (!users) return
+        const parsedUsers = JSON.parse(users)
+        const couriers = []
+        for (let i = 0; i < parsedUsers.length; i++) {
+            if (parsedUsers[i].role === "courier") {
+                couriers.push(parsedUsers[i])
+            }
+        }
+        return couriers
+    }
+
+    const couriers = getCouriers()
+
+    const [showCouriers, setShowCouriers] = useState(-1)
+
+    const handleChangeCourier = (courier: string, ind: number) => {
+        const orders = JSON.parse(localStorage.getItem("orders")!)
+        const newOrders = orders.map((e: any, i: number) => i === ind ? { ...orders[i], კურიერი: courier } : e)
+        setOrders(newOrders)
+        localStorage.setItem("orders", JSON.stringify(newOrders))
+    }
 
     return (
         <div className="p-[20px] rounded-[6px] bg-[#111111] mt-[24px]">
@@ -21,12 +46,21 @@ export default function ManagePackages() {
                 <tbody className="">
                     <tr><td className="h-[13px]"></td></tr>
                     {pageOrders.map((e, i) => {
-                        console.log(e["კურიერის სტატუსი"])
                         return <tr key={i} className={`border-b-[0.1px] ${i == 5 && "border-none!"} rounded-[8px_8px_0_0] border-solid border-[#FFFFFF]`}>
                             <td className={`border-solid border-[#B6B6B633] p-[15px_0_13px_13px] font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF] ${e["კურიერის სტატუსი"] === 'Completed' ? "bg-[#00AB55]" : e["კურიერის სტატუსი"] === 'Denied Once' ? "bg-[#FF9900]" : e["კურიერის სტატუსი"] === 'Denied Twice' ? "bg-[#FF0000]" : e["კურიერის სტატუსი"] === 'To Deliver' ? "bg-[#999696]" : ""}  ${i === 0 ? "rounded-tl-[8px]" : i === 5 ? "rounded-bl-[8px]" : ""} text-left`}>#{filteredOrders.findIndex(item => item === e)}</td>
-                            <td className={`${e.კურიერი === "None" ?"bg-transparent! border-[1px] border-solid border-[#343434]" : "bg-[#343434]"} rounded-[8px] font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF] w-[100px] whitespace-nowrap text-center mx-auto p-[6px_24px_9px_24px] cursor-pointer mt-[7px] mb-[8px] flex gap-[4px] items-center`}>
-                                {e.კურიერი}
-                                <img src="/images/Home/Polygon 1 (1).svg" alt="" />
+                            <td className={`whitespace-nowrap flex justify-center mx-auto relative`}>
+                                <div onClick={() => showCouriers === i ? setShowCouriers(-1) : setShowCouriers(i)} className={`rounded-[8px] font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF] w-[100px] ${e.კურიერი === "None" ? "bg-transparent! border-[1px] border-solid border-[#343434]" : "bg-[#343434]"} mt-[7px] mb-[8px] p-[6px_24px_9px_24px] flex gap-[4px] cursor-pointer items-center`}>
+                                    <h6>{e.კურიერი}</h6>
+                                    <img src="/images/Home/Polygon 1 (1).svg" alt="" />
+                                </div>
+                                <div className={`absolute transition-all duration-500 left-[150px] p-[12px_32px_12px_16px] bg-[#292929] border-[0.8px] border-solid border-[#585858] rounded-[8px] flex flex-col gap-[12px] shadow-[0_0_4px_0_#00000040] ${showCouriers !== i && "hidden"}`}>
+                                    {couriers?.map((c, ind) => {
+                                        return <h5 key={ind} onClick={() => handleChangeCourier(c.name, filteredOrders.findIndex(item => item === e))} className={`flex items-center gap-[5px] font-[300] cursor-pointer text-[1.4rem] leading-[100%] text-[#FFFFFF] ${e.კურიერი !== c.name && "ml-[19px]"}`}>
+                                            {e.კურიერი === c.name && <img src="/images/Home/Group 40674.svg" alt="" />}
+                                            {c.name}
+                                        </h5>
+                                    })}
+                                </div>
                             </td>
                             <td className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#B8B8B8]">
                                 <div className="flex items-center justify-center gap-[8px]">
