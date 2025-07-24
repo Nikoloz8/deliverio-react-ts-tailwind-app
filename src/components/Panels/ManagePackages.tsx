@@ -22,6 +22,8 @@ export default function ManagePackages() {
     const couriers = getCouriers()
 
     const [showCouriers, setShowCouriers] = useState(-1)
+    const [showStatus, setShowStatus] = useState(-1)
+
 
     const handleChangeCourier = (courier: string, ind: number) => {
         const orders = JSON.parse(localStorage.getItem("orders")!)
@@ -30,6 +32,17 @@ export default function ManagePackages() {
         localStorage.setItem("orders", JSON.stringify(newOrders))
     }
 
+    const handleChangeOrderStatus = (status: string, ind: number) => {
+        console.log("e")
+        const orders = JSON.parse(localStorage.getItem("orders")!)
+        console.log(orders)
+        const newOrders = orders.map((e: any, i: number) => i === ind ? { ...orders[i], "კურიერის სტატუსი": status } : e)
+        setOrders(newOrders)
+        localStorage.setItem("orders", JSON.stringify(newOrders))
+        setShowStatus(-1)
+    }
+
+    console.log(showStatus)
     return (
         <div className="p-[20px] rounded-[6px] bg-[#111111] mt-[24px]">
             <h1 className="text-[1.8rem] font-[500] leading-[100%] text-[#FFFFFF] ">Manage Packages</h1>
@@ -37,7 +50,7 @@ export default function ManagePackages() {
                 <thead className="bg-[rgba(133,133,133,0.3)]">
                     <tr className="w-[100%]">
                         <th className="rounded-l-[6px] p-[12px_0] text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">Order #</th>
-                        <th className=" text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">Assigned Courier</th>
+                        <th className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">Assigned Courier</th>
                         <th></th>
                         <th></th>
                         <th className="rounded-r-[6px] p-[12px_0] opacity-0">placeholder</th>
@@ -47,9 +60,20 @@ export default function ManagePackages() {
                     <tr><td className="h-[13px]"></td></tr>
                     {pageOrders.map((e, i) => {
                         return <tr key={i} className={`border-b-[0.1px] ${i == 5 && "border-none!"} rounded-[8px_8px_0_0] border-solid border-[#FFFFFF]`}>
-                            <td className={`border-solid border-[#B6B6B633] p-[15px_0_13px_13px] font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF] ${e["კურიერის სტატუსი"] === 'Completed' ? "bg-[#00AB55]" : e["კურიერის სტატუსი"] === 'Denied Once' ? "bg-[#FF9900]" : e["კურიერის სტატუსი"] === 'Denied Twice' ? "bg-[#FF0000]" : e["კურიერის სტატუსი"] === 'To Deliver' ? "bg-[#999696]" : ""}  ${i === 0 ? "rounded-tl-[8px]" : i === 5 ? "rounded-bl-[8px]" : ""} text-left`}>#{filteredOrders.findIndex(item => item === e)}</td>
+                            <td onClick={() => showStatus === i ? setShowStatus(-1) : setShowStatus(i)} className={`border-solid border-[#B6B6B633] relative p-[15px_0_13px_13px] font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF] ${e["კურიერის სტატუსი"] === 'Completed' ? "bg-[#00AB55]" : e["კურიერის სტატუსი"] === 'Denied Once' ? "bg-[#FF9900]" : e["კურიერის სტატუსი"] === 'Denied Twice' ? "bg-[#FF0000]" : e["კურიერის სტატუსი"] === 'To Deliver' ? "bg-[#999696]" : ""}  ${i === 0 ? "rounded-tl-[8px]" : i === 5 ? "rounded-bl-[8px]" : ""} text-left`}>
+                                #{filteredOrders.findIndex(item => item === e)}
+                                <div className={`absolute transition-all duration-500 left-[100px] z-10 p-[16px_20px] bg-[#111111] border-[1px] top-0 border-solid border-[#363636] rounded-[8px] flex flex-col gap-[16px] shadow-[0_0_4px_0_#00000040] ${showStatus !== i && "hidden"}`}>
+                                    <h3 className="font-[275] w-[190px] text-center text-[1.8rem] leading-[100%] text-[#FFFFFF]">Change Order Status</h3>
+                                    <div className="flex flex-col gap-[8px] w-[100%] items-center">
+                                        <button onClick={() => handleChangeOrderStatus("Completed", i)} className={`font-[300] w-[110px] py-[8px] bg-[#0C3F25] cursor-pointer text-[#00AB55] rounded-[28px] text-[1.2rem] leading-[100%]`}>Delivered</button>
+                                        <button onClick={() => handleChangeOrderStatus("Denied Once", i)} className={`font-[300] w-[110px] py-[8px] bg-[#7E510D] cursor-pointer text-[#FF9900] rounded-[28px] text-[1.2rem] leading-[100%]`}>Denied Once</button>
+                                        <button onClick={() => handleChangeOrderStatus("Denied Twice", i)} className={`font-[300] w-[110px] py-[8px] bg-[#580C0C] cursor-pointer text-[#FF0000] rounded-[28px] text-[1.2rem] leading-[100%]`}>Denied Twice</button>
+                                        <button onClick={() => handleChangeOrderStatus("To Deliver", i)} className={`font-[300] w-[110px] py-[8px]    bg-[#343434] cursor-pointer text-[#FFFFFF] rounded-[28px] text-[1.2rem] leading-[100%]`}>To Deliver</button>
+                                    </div>
+                                </div>
+                            </td>
                             <td className={`whitespace-nowrap flex justify-center mx-auto relative`}>
-                                <div onClick={() => showCouriers === i ? setShowCouriers(-1) : setShowCouriers(i)} className={`rounded-[8px] font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF] w-[100px] ${e.კურიერი === "None" ? "bg-transparent! border-[1px] border-solid border-[#343434]" : "bg-[#343434]"} mt-[7px] mb-[8px] p-[6px_24px_9px_24px] flex gap-[4px] cursor-pointer items-center`}>
+                                <div onClick={() => showCouriers === i ? setShowCouriers(-1) : setShowCouriers(i)} className={`rounded-[8px] font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF] w-[100px] ${e.კურიერი === "None" ? "bg-transparent! border-[1px] border-solid border-[#343434]" : "bg-[#343434]"} mt-[7px] mb-[8px] p-[6px_24px_9px_24px] flex gap-[4px] justify-center cursor-pointer items-center`}>
                                     <h6>{e.კურიერი}</h6>
                                     <img src="/images/Home/Polygon 1 (1).svg" alt="" />
                                 </div>
