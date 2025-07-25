@@ -11,6 +11,8 @@ export default function PanelsLayout() {
     const [pageOrders, setPageOrders] = useState<any[]>([])
     const [storesArr, setStoresArr] = useState<any[]>([])
     const [filterStore, setFilterStore] = useState<any[]>([])
+    const [showSorts, setShowSorts] = useState(false)
+
     const itemsPerPage = 6
 
     useEffect(() => {
@@ -47,7 +49,7 @@ export default function PanelsLayout() {
             <Header />
             <div className="flex w-[1210px] justify-between p-[35px_40px]">
                 <Navigation />
-                <Outlet context={{ orders, storesArr, filterStore, setFilterStore, sortBy, setSortBy, pageOrders, filteredOrders, setCountPages, totalPages, setOrders }} />
+                <Outlet context={{ orders, storesArr, filterStore, setFilterStore, sortBy, setSortBy, pageOrders, filteredOrders, setCountPages, totalPages, setOrders, showSorts, setShowSorts }} />
             </div>
         </div>
     )

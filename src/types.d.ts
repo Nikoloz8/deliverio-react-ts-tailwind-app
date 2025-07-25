@@ -27,4 +27,6 @@ type TPanelsLayoutOutletContext = {
     filteredOrders: any[]
     setCountPages: React.Dispatch<React.SetStateAction<number>>
     totalPages: number
+    setShowSorts: React.Dispatch<React.SetStateAction<boolean>>
+    showSorts:boolean
 } 

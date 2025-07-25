@@ -32,7 +32,7 @@ export default function OrderDetails() {
 
     return (
         <div>
-            {showDelete || showChangeStatus && <div onClick={() => {
+            {(showDelete || showChangeStatus) && <div onClick={() => {
                 setShowDelete(false)
                 setShowChangeStatus(false)
             }} className="fixed transition-all duration-1000 bg-[rgba(0,0,0,0.3)]  border-[#585858] rounded-[8px] left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 h-[100%] w-[100%]"></div>}
