@@ -13,6 +13,8 @@ type TForm = {
     register: UseFormRegister<FieldValues>
     watch: UseFormWatch<FieldValues>
     handleSubmit: UseFormHandleSubmit<FieldValues, FieldValues>
+    reset: UseFormReset<FieldValues>
+    formState: FormState<FieldValues>
 }
 
 type TPanelsLayoutOutletContext = {

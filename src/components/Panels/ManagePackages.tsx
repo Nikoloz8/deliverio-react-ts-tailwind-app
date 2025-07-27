@@ -2,6 +2,7 @@ import { useLocation, useOutletContext } from "react-router-dom"
 import NextPrevButtons from "./NextPrevButtons"
 import { useState } from "react"
 import SortOrders from "./SortOrders"
+import index from "../../utils"
 
 export default function ManagePackages() {
 
@@ -43,6 +44,7 @@ export default function ManagePackages() {
         setShowStatus(-1)
     }
 
+    const { getRole } = index()
 
 
     return (
@@ -78,9 +80,9 @@ export default function ManagePackages() {
                                 </div>
                             </td>
                             <td className={`whitespace-nowrap flex justify-center mx-auto relative`}>
-                                <div onClick={() => showCouriers === i ? setShowCouriers(-1) : setShowCouriers(i)} className={`rounded-[8px] font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF] w-[100px] ${e.კურიერი === "None" ? "bg-transparent! border-[1px] border-solid border-[#343434]" : "bg-[#343434]"} mt-[7px] mb-[8px] p-[6px_24px_9px_24px] flex gap-[4px] justify-center cursor-pointer items-center`}>
+                                <div onClick={() => showCouriers === i ? setShowCouriers(-1) : setShowCouriers(i)} className={`${getRole() !== "courier" && `rounded-[8px] ${e.კურიერი === "None" ? "bg-transparent! border-[1px] border-solid border-[#343434]" : "bg-[#343434]"} cursor-pointer items-center text-[#FFFFFF]`} font-[300] text-[1.4rem] leading-[100%] text-[#B8B8B8] w-[100px] mt-[7px] mb-[8px] p-[6px_24px_9px_24px] flex gap-[4px] justify-center`}>
                                     <h6>{e.კურიერი}</h6>
-                                    <img src="/images/Home/Polygon 1 (1).svg" alt="" />
+                                    <img className={`${getRole() === "courier" && "hidden!"}`} src="/images/Home/Polygon 1 (1).svg" alt="" />
                                 </div>
                                 <div className={`absolute transition-all duration-500 left-[150px] p-[12px_32px_12px_16px] bg-[#292929] border-[0.8px] border-solid border-[#585858] rounded-[8px] flex flex-col gap-[12px] shadow-[0_0_4px_0_#00000040] ${showCouriers !== i && "hidden"}`}>
                                     {couriers?.map((c, ind) => {

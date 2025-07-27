@@ -1,9 +1,10 @@
-import { useOutletContext, useParams } from "react-router-dom"
+import { useNavigate, useOutletContext, useParams } from "react-router-dom"
 
 export default function Signup() {
-    const { handleSubmit, register, watch } = useOutletContext<TForm>()
+    const { handleSubmit, register, watch, reset } = useOutletContext<TForm>()
 
     const onSubmit = () => { }
+    const navigate = useNavigate()
     
     const { role } = useParams()
     const handleSignUp = () => {
@@ -24,6 +25,8 @@ export default function Signup() {
         const parsedUsers = JSON.parse(users!)
         parsedUsers.push(user)
         localStorage.setItem("users", JSON.stringify(parsedUsers))
+        navigate("/")
+        reset()
     }
 
     return (
