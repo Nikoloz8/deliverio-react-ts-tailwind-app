@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate, useOutletContext, useParams } from "react-router-dom"
+import StatusTab from "./StatusTab"
 
 export default function OrderDetails() {
 
@@ -10,6 +11,7 @@ export default function OrderDetails() {
 
     const [showDelete, setShowDelete] = useState(false)
     const [showChangeStatus, setShowChangeStatus] = useState(false)
+    const [showForm, setShowForm] = useState(false)
 
     const navigate = useNavigate()
     const { setOrders } = useOutletContext<TPanelsLayoutOutletContext>()
@@ -32,10 +34,53 @@ export default function OrderDetails() {
 
     return (
         <div>
-            {(showDelete || showChangeStatus) && <div onClick={() => {
-                setShowDelete(false)
+            {(showForm || showChangeStatus) && <div onClick={() => {
+                setShowForm(false)
                 setShowChangeStatus(false)
             }} className="fixed transition-all duration-1000 bg-[rgba(0,0,0,0.3)]  border-[#585858] rounded-[8px] left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 h-[100%] w-[100%]"></div>}
+            <div className={`fixed transition-all duration-1000 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 top-[-300px] flex items-end gap-[24px] ${showForm && "top-1/2!"}`}>
+                <form action="" onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-[21px] p-[32px] bg-[#111111] rounded-[8px]">
+                    <h4 className="font-[275] text-center w-[100%] cursor-pointer text-[#FFFFFF] text-[1.8rem] leading-[100%]">
+                        Edit
+                    </h4>
+                    <div className="flex flex-col gap-[8px]">
+                        <label htmlFor="buyer" className="font-[275] text-[#FFFFFF] text-[1.4rem] leading-[100%]">Buyer</label>
+                        <input type="text" id="buyer" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
+                    </div>
+                    <div className="flex flex-col gap-[8px]">
+                        <label htmlFor="store" className="font-[275] cursor-pointer text-[#FFFFFF] text-[1.4rem] leading-[100%]">Store</label>
+                        <input type="text" id="store" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
+                    </div>
+                    <div className="flex flex-col gap-[8px]">
+                        <label htmlFor="address" className="font-[275] cursor-pointer text-[#FFFFFF] text-[1.4rem] leading-[100%]">Address</label>
+                        <input type="text" id="address" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
+                    </div>
+                    <div className="flex flex-col gap-[8px]">
+                        <label htmlFor="number" className="font-[275] cursor-pointer text-[#FFFFFF] text-[1.4rem] leading-[100%]">Phone Number</label>
+                        <input type="text" id="number" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
+                    </div>
+                    <div className="flex flex-col gap-[8px]">
+                        <label htmlFor="amount" className="font-[275] cursor-pointer text-[#FFFFFF] text-[1.4rem] leading-[100%]">Amount</label>
+                        <input type="text" id="amount" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
+                    </div>
+                    <div className="flex flex-col gap-[8px]">
+                        <label className="font-[275] cursor-pointer text-[#FFFFFF] text-[1.4rem] leading-[100%]">Status</label>
+                        <span onClick={() => setShowChangeStatus(!showChangeStatus)}>
+                            <StatusTab order={order} />
+                        </span>
+                    </div>
+                </form>
+                <div className={`transition-all duration-1000 p-[24px] bg-[#111111] border-[0.8px] border-solid border-[#363636] rounded-[8px] right-[-540px] w-[324px] hidden flex-col gap-[16px] shadow-[0_0_4px_0_#00000040] items-start ${showChangeStatus && "flex!"}`}>
+                    <h3 className="font-[275] text-[1.8rem] leading-[100%] text-[#FFFFFF]">
+                        Change Order Status
+                    </h3>
+                    <div className="flex flex-col gap-[8px] items-start">
+                        <button onClick={() => handleChangeStatus("Completed")} className={`font-[300] p-[8px_24px] bg-[#0C3F25] cursor-pointer text-[#00AB55] rounded-[28px] text-[1.2rem] leading-[100%]`}>Delivered</button>
+                        <button onClick={() => handleChangeStatus("In Process")} className={`font-[300] p-[8px_24px] bg-[#292929] cursor-pointer text-[#FFFFFF] rounded-[30px] text-[1.2rem] leading-[100%]`}>In Process</button>
+                        <button onClick={() => setShowChangeStatus(false)} className={`font-[300] p-[8px_24px] bg-[#580C0C] cursor-pointer text-[#FF0000] rounded-[30px] text-[1.2rem] leading-[100%]`}>Cancel</button>
+                    </div>
+                </div>
+            </div>
             <div className={`fixed transition-all duration-1000 p-[16px_32px_32px_24px] bg-[#111111] rounded-[8px] left-1/2 -translate-x-1/2 -translate-y-1/2 top-[-200px] flex flex-col gap-[32px] shadow-[0_0_4px_0_#00000040] ${showDelete && "top-1/2!"}`}>
                 <h3 className="font-[275] text-[1.8rem] text-center leading-[100%] text-[#FFFFFF]">
                     Delete Order?
@@ -84,21 +129,11 @@ export default function OrderDetails() {
                         <h3 className="font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">Package Status:</h3>
                         <div className="flex justify-between items-center">
                             <div className="relative">
-                                <button onClick={() => setShowChangeStatus(!showChangeStatus)} className={`font-[500] p-[10px_32px] ${order.სტატუსი === "Completed" ? "bg-[#0C3F25] cursor-pointer text-[#00AB55]" : order.სტატუსი === "In Process" ? "bg-[#292929] text-[#FFFFFF]" : order.სტატუსი === "Cancelled" ? "text-[#FF0000] bg-[#580C0C]" : ""} rounded-[35px] text-[1.3rem] leading-[100%] cursor-pointer`}>{order.სტატუსი === "Completed" ? "Delivered" : order.სტატუსი}</button>
-                                <div className={`fixed transition-all duration-1000 p-[24px] bg-[#111111] border-[0.8px] border-solid border-[#363636] rounded-[8px] left-1/2 -translate-x-1/2 -translate-y-1/2 top-[-200px] w-[324px] flex flex-col gap-[16px] shadow-[0_0_4px_0_#00000040] items-start ${showChangeStatus && "top-1/2!"}`}>
-                                    <h3 className="font-[275] text-[1.8rem] leading-[100%] text-[#FFFFFF]">
-                                        Change Order Status
-                                    </h3>
-                                    <div className="flex flex-col gap-[8px] items-start">
-                                        <button onClick={() => handleChangeStatus("Completed")} className={`font-[300] p-[8px_24px] bg-[#0C3F25] cursor-pointer text-[#00AB55] rounded-[28px] text-[1.2rem] leading-[100%]`}>Delivered</button>
-                                        <button onClick={() => handleChangeStatus("In Process")} className={`font-[300] p-[8px_24px] bg-[#292929] cursor-pointer text-[#FFFFFF] rounded-[30px] text-[1.2rem] leading-[100%]`}>In Process</button>
-                                        <button onClick={() => setShowChangeStatus(false)} className={`font-[300] p-[8px_24px] bg-[#580C0C] cursor-pointer text-[#FF0000] rounded-[30px] text-[1.2rem] leading-[100%]`}>Cancel</button>
-                                    </div>
-                                </div>
+                                <StatusTab order={order} />
                             </div>
                             <h4 className="font-[300] text-[1.4rem] leading-[100%] text-[#757575]">{order.თარიღი}</h4>
                             <div className="flex gap-[24px]">
-                                <button className="font-[300] text-[1.3rem] leading-[100%] text-[#FF9900] cursor-pointer">Edit</button>
+                                <button onClick={() => setShowForm(!showForm)} className="font-[300] text-[1.3rem] leading-[100%] text-[#FF9900] cursor-pointer">Edit</button>
                                 <button className="font-[500] p-[10px_32px] bg-[rgba(255,0,0,0.3)] rounded-[35px] text-[1.3rem] leading-[100%] text-[#FF0000] cursor-pointer" onClick={() => setShowDelete(!showDelete)}>Delete</button>
                             </div>
                         </div>
