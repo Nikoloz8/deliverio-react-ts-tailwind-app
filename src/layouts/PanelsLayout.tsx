@@ -12,6 +12,9 @@ export default function PanelsLayout() {
     const [storesArr, setStoresArr] = useState<any[]>([])
     const [filterStore, setFilterStore] = useState<any[]>([])
     const [showSorts, setShowSorts] = useState(false)
+    const [showForm, setShowForm] = useState(false)
+    const [showDelete, setShowDelete] = useState(false)
+    const [showChangeStatus, setShowChangeStatus] = useState(false)
 
     const itemsPerPage = 6
 
@@ -47,9 +50,14 @@ export default function PanelsLayout() {
     return (
         <div className="flex flex-col items-center bg-[#000000] min-h-[100vh]">
             <Header />
+            {(showForm || showDelete) && <div onClick={() => {
+                setShowForm(false)
+                setShowDelete(false)
+                setShowChangeStatus(false)
+            }} className="fixed transition-all duration-1000 bg-[rgba(0,0,0,0.3)]  border-[#585858] rounded-[8px] left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 h-[100%] w-[100%]"></div>}
             <div className="flex w-[1210px] justify-between p-[35px_40px]">
                 <Navigation />
-                <Outlet context={{ orders, storesArr, filterStore, setFilterStore, sortBy, setSortBy, pageOrders, filteredOrders, setCountPages, totalPages, setOrders, showSorts, setShowSorts }} />
+                <Outlet context={{ orders, storesArr, filterStore, setFilterStore, sortBy, setSortBy, pageOrders, filteredOrders, setCountPages, totalPages, setOrders, showSorts, setShowSorts, showForm, setShowForm, showDelete, setShowDelete, showChangeStatus, setShowChangeStatus }} />
             </div>
         </div>
     )

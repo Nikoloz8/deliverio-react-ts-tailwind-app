@@ -51,6 +51,10 @@ const router = createBrowserRouter([
         path: '/panels/admin/:orderIndex'
       },
       {
+        element: <OrderDetails />,
+        path: '/panels/store/:orderIndex'
+      },
+      {
         element: <ManagePackages />,
         path: '/panels/admin/Manage Packages'
       },

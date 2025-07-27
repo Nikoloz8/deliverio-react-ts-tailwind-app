@@ -2,6 +2,7 @@ import { useLocation, useNavigate, useOutletContext } from "react-router-dom"
 import NextPrevButtons from "./NextPrevButtons"
 import SortOrders from "./SortOrders"
 import FilterOrders from "./FilterOrders"
+import index from "../../utils"
 
 export default function StoreOrders() {
 
@@ -9,6 +10,8 @@ export default function StoreOrders() {
 
     const navigate = useNavigate()
     const location = useLocation().pathname
+
+    const {getRole} = index()
 
     return (
         <div className="p-[20px] rounded-[6px] bg-[#111111] mt-[24px]">
@@ -30,7 +33,7 @@ export default function StoreOrders() {
                 </thead>
                 <tbody>
                     {pageOrders.map((order: any, index: number) => {
-                        return <tr key={index} onClick={() => navigate(`/panels/admin/${orders.findIndex(e => e === order)}`)} className="cursor-pointer border-b-[1px] border-solid border-[#E0E6ED]">
+                        return <tr key={index} onClick={() => navigate(`/panels/${getRole()}/${orders.findIndex(e => e === order)}`)} className="cursor-pointer border-b-[1px] border-solid border-[#E0E6ED]">
                             <td className="p-[13px_0_13px_40px] text-center font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF]">#{filteredOrders.findIndex(item => item === order)}</td>
                             <td className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order.თარიღი}</td>
                             <td className="text-center font-[300] text-[1.4rem] leading-[100%] text-[#FFFFFF]">{order.მაღაზია}</td>

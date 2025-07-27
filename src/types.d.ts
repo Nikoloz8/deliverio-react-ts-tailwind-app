@@ -28,5 +28,11 @@ type TPanelsLayoutOutletContext = {
     setCountPages: React.Dispatch<React.SetStateAction<number>>
     totalPages: number
     setShowSorts: React.Dispatch<React.SetStateAction<boolean>>
-    showSorts:boolean
+    showSorts: boolean
+    showForm: boolean
+    setShowForm: React.Dispatch<React.SetStateAction<boolean>>
+    showDelete: boolean
+    setShowDelete: React.Dispatch<React.SetStateAction<boolean>>
+    showChangeStatus: boolean
+    setShowChangeStatus: React.Dispatch<React.SetStateAction<boolean>>
 } 

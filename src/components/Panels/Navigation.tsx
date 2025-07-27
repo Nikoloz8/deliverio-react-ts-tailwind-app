@@ -29,7 +29,7 @@ export default function Navigation() {
             <div className="bg-[#111111] border-[1px] border-solid border-[#545454] rounded-[8px]">
                 <ul className="flex flex-col">
                     {forRender().map((p, index) => {
-                        return <li onClick={() => navigate(`/panels/${role}/${p}`)} key={index} className={`p-[5px_21px] text-[1.4rem] font-[300] leading-[100%] text-[#858585] border-solid cursor-pointer border-[#545454] ${/^-?\d+(\.\d+)?$/.test(location.split("/")[3]) && p === "Store Orders" && "text-[#FFFFFF]"} ${panel == p && "text-[#FFFFFF]!"} ${forRender().length - 1 !== index && "border-b-[1px]"}`}>
+                        return <li onClick={() => navigate(`/panels/${role}/${p}`)} key={index} className={`p-[5px_21px] text-[1.4rem] font-[300] leading-[100%] text-[#858585] border-solid cursor-pointer border-[#545454] ${/^-?\d+(\.\d+)?$/.test(location.split("/")[3]) && (p === "Store Orders" || p === "My Orders") && "text-[#FFFFFF]"} ${panel == p && "text-[#FFFFFF]!"} ${forRender().length - 1 !== index && "border-b-[1px]"}`}>
                             {p}
                         </li>
                     })}
