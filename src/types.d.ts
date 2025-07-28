@@ -38,4 +38,9 @@ type TPanelsLayoutOutletContext = {
     setShowDelete: React.Dispatch<React.SetStateAction<boolean>>
     showChangeStatus: boolean
     setShowChangeStatus: React.Dispatch<React.SetStateAction<boolean>>
+    showCouriers: number
+    setShowCouriers: React.Dispatch<React.SetStateAction<number>>
+    showStatus: number
+    setShowStatus: React.Dispatch<React.SetStateAction<number>>
+
 } 

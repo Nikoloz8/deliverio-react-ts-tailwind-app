@@ -1,12 +1,11 @@
 import { useLocation, useOutletContext } from "react-router-dom"
 import NextPrevButtons from "./NextPrevButtons"
-import { useState } from "react"
 import SortOrders from "./SortOrders"
 import index from "../../utils"
 
 export default function ManagePackages() {
 
-    const { pageOrders, filteredOrders, setOrders } = useOutletContext<TPanelsLayoutOutletContext>()
+    const { pageOrders, filteredOrders, setOrders, showStatus, setShowStatus, setShowCouriers, showCouriers } = useOutletContext<TPanelsLayoutOutletContext>()
 
     const location = useLocation().pathname
 
@@ -25,8 +24,6 @@ export default function ManagePackages() {
 
     const couriers = getCouriers()
 
-    const [showCouriers, setShowCouriers] = useState(-1)
-    const [showStatus, setShowStatus] = useState(-1)
 
 
     const handleChangeCourier = (courier: string, ind: number) => {
@@ -40,12 +37,12 @@ export default function ManagePackages() {
         const orders = JSON.parse(localStorage.getItem("orders")!)
         const newOrders = orders.map((e: any, i: number) => i === ind ? { ...orders[i], "კურიერის სტატუსი": status } : e)
         setOrders(newOrders)
+        console.log(newOrders)
         localStorage.setItem("orders", JSON.stringify(newOrders))
         setShowStatus(-1)
     }
 
     const { getRole } = index()
-
 
     return (
         <div className="p-[20px] rounded-[6px] bg-[#111111] mt-[24px]">
@@ -72,15 +69,15 @@ export default function ManagePackages() {
                                 <div className={`absolute transition-all duration-500 left-[100px] z-10 p-[16px_20px] bg-[#111111] border-[1px] top-0 border-solid border-[#363636] rounded-[8px] flex flex-col gap-[16px] shadow-[0_0_4px_0_#00000040] ${showStatus !== i && "hidden"}`}>
                                     <h3 className="font-[275] w-[190px] text-center text-[1.8rem] leading-[100%] text-[#FFFFFF]">Change Order Status</h3>
                                     <div className="flex flex-col gap-[8px] w-[100%] items-center">
-                                        <button onClick={() => handleChangeOrderStatus("Completed", i)} className={`font-[300] w-[110px] py-[8px] bg-[#0C3F25] cursor-pointer text-[#00AB55] rounded-[28px] text-[1.2rem] leading-[100%]`}>Delivered</button>
-                                        <button onClick={() => handleChangeOrderStatus("Denied Once", i)} className={`font-[300] w-[110px] py-[8px] bg-[#7E510D] cursor-pointer text-[#FF9900] rounded-[28px] text-[1.2rem] leading-[100%]`}>Denied Once</button>
-                                        <button onClick={() => handleChangeOrderStatus("Denied Twice", i)} className={`font-[300] w-[110px] py-[8px] bg-[#580C0C] cursor-pointer text-[#FF0000] rounded-[28px] text-[1.2rem] leading-[100%]`}>Denied Twice</button>
-                                        <button onClick={() => handleChangeOrderStatus("To Deliver", i)} className={`font-[300] w-[110px] py-[8px]    bg-[#343434] cursor-pointer text-[#FFFFFF] rounded-[28px] text-[1.2rem] leading-[100%]`}>To Deliver</button>
+                                        <button onClick={() => handleChangeOrderStatus("Completed", filteredOrders.findIndex(item => item === e))} className={`font-[300] w-[110px] py-[8px] bg-[#0C3F25] cursor-pointer text-[#00AB55] rounded-[28px] text-[1.2rem] leading-[100%]`}>Delivered</button>
+                                        <button onClick={() => handleChangeOrderStatus("Denied Once", filteredOrders.findIndex(item => item === e))} className={`font-[300] w-[110px] py-[8px] bg-[#7E510D] cursor-pointer text-[#FF9900] rounded-[28px] text-[1.2rem] leading-[100%]`}>Denied Once</button>
+                                        <button onClick={() => handleChangeOrderStatus("Denied Twice", filteredOrders.findIndex(item => item === e))} className={`font-[300] w-[110px] py-[8px] bg-[#580C0C] cursor-pointer text-[#FF0000] rounded-[28px] text-[1.2rem] leading-[100%]`}>Denied Twice</button>
+                                        <button onClick={() => handleChangeOrderStatus("To Deliver", filteredOrders.findIndex(item => item === e))} className={`font-[300] w-[110px] py-[8px]    bg-[#343434] cursor-pointer text-[#FFFFFF] rounded-[28px] text-[1.2rem] leading-[100%]`}>To Deliver</button>
                                     </div>
                                 </div>
                             </td>
                             <td className={`whitespace-nowrap flex justify-center mx-auto relative`}>
-                                <div onClick={getRole() !== "courier" ? (() => showCouriers === i ? setShowCouriers(-1) : setShowCouriers(i)) : () => {}} className={`${getRole() !== "courier" && `rounded-[8px] ${e.კურიერი === "None" ? "bg-transparent! border-[1px] border-solid border-[#343434]" : "bg-[#343434]"} cursor-pointer items-center text-[#FFFFFF]`} font-[300] text-[1.4rem] leading-[100%] text-[#B8B8B8] w-[100px] mt-[7px] mb-[8px] p-[6px_24px_9px_24px] flex gap-[4px] justify-center`}>
+                                <div onClick={getRole() !== "courier" ? (() => showCouriers === i ? setShowCouriers(-1) : setShowCouriers(i)) : () => { }} className={`${getRole() !== "courier" && `rounded-[8px] ${e.კურიერი === "None" ? "bg-transparent! border-[1px] border-solid border-[#343434]" : "bg-[#343434]"} cursor-pointer items-center text-[#FFFFFF]`} font-[300] text-[1.4rem] leading-[100%] text-[#B8B8B8] w-[100px] mt-[7px] mb-[8px] p-[6px_24px_9px_24px] flex gap-[4px] justify-center`}>
                                     <h6>{e.კურიერი}</h6>
                                     <img className={`${getRole() === "courier" && "hidden!"}`} src="/images/Home/Polygon 1 (1).svg" alt="" />
                                 </div>

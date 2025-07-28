@@ -12,7 +12,7 @@ export default function Header() {
 
     return (
         <header className="bg-[#0F0F0F] w-[100%] flex justify-center">
-            <div className="flex p-[13px_40px] justify-between w-[1080px]">
+            <div className="flex p-[13px_40px] justify-between w-[1200px]">
                 <div onClick={() => navigate("/")} className="cursor-pointer flex gap-[6px] items-center">
                     <img src="/images/Home/Deliverio Icon 1.svg" alt="" />
                     <img src="/images/Home/Deliverio.svg" alt="" />
