@@ -6,11 +6,13 @@ import index from "../../utils"
 
 export default function EditForm() {
 
-    const { register, watch, reset } = useForm({})
+    const { register, watch, reset, formState: { errors }, handleSubmit } = useForm({})
     const orders = JSON.parse(localStorage.getItem("orders")!)
 
     const { orderIndex } = useParams()
     const order = orders.find((_e: any, i: number) => i == Number(orderIndex))
+
+    console.log(errors)
 
     useEffect(() => {
         reset({
@@ -39,29 +41,80 @@ export default function EditForm() {
     return (
         <>
             <div className={`fixed transition-all duration-1000 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 top-[-300px] flex items-end gap-[24px] ${showForm && "top-1/2!"}`}>
-                <form action="" onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-[21px] p-[32px] bg-[#111111] rounded-[8px]">
+                <form action="" onSubmit={handleSubmit(() => handleSaveForm(status))} className="flex flex-col gap-[21px] p-[32px] bg-[#111111] rounded-[8px]">
                     <h4 className="font-[275] text-center w-[100%] cursor-pointer text-[#FFFFFF] text-[1.8rem] leading-[100%]">
                         Edit
                     </h4>
                     <div className="flex flex-col gap-[8px]">
-                        <label htmlFor="buyer" className="font-[275] text-[#FFFFFF] text-[1.4rem] leading-[100%]">Buyer</label>
-                        <input {...register("Buyer")} type="text" id="buyer" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
+                        <label htmlFor="buyer" className="font-[275] text-[#FFFFFF] text-[1.4rem] leading-[100%] flex justify-between">
+                            Buyer
+                            {errors.Buyer && (<span className="text-[red] text-[1.2rem]!">{typeof errors.Buyer.message === "string" && errors.Buyer.message}</span>)}
+                        </label>
+                        <input {...register("Buyer", {
+                            required: "Buyer name is required",
+                            minLength: {
+                                value: 2,
+                                message: "Name must be at least 2 characters",
+                            },
+                            pattern: {
+                                value: /^[a-zA-Z\s]+$/,
+                                message: "Name can only contain letters and spaces",
+                            }
+                        })} type="text" id="buyer" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
                     </div>
                     <div className="flex flex-col gap-[8px]">
-                        <label htmlFor="store" className="font-[275] text-[#FFFFFF] text-[1.4rem] leading-[100%]">Store</label>
-                        <input {...register("Store")} type="text" id="store" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
+                        <label htmlFor="store" className="font-[275] text-[#FFFFFF] text-[1.4rem] leading-[100%] flex justify-between">
+                            Store
+                            {errors.Store && (<span className="text-[red] text-[1.2rem]!">{typeof errors.Store.message === "string" && errors.Store.message}</span>)}
+                        </label>
+                        <input {...register("Store", {
+                            required: "Store is required",
+                            minLength: { value: 2, message: "Too short" },
+                            pattern: {
+                                value: /^[a-zA-Z0-9\s-]+$/,
+                                message: "Only letters, numbers, spaces, and -",
+                            }
+                        })} type="text" id="store" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
                     </div>
                     <div className="flex flex-col gap-[8px]">
-                        <label htmlFor="address" className="font-[275] text-[#FFFFFF] text-[1.4rem] leading-[100%]">Address</label>
-                        <input {...register("Address")} type="text" id="address" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
+                        <label htmlFor="address" className="font-[275] text-[#FFFFFF] text-[1.4rem] leading-[100%] flex justify-between">
+                            Address
+                            {errors.Address && (<span className="text-[red] text-[1.2rem]!">{typeof errors.Address.message === "string" && errors.Address.message}</span>)}
+                        </label>
+                        <input {...register("Address", {
+                            required: "Address is required",
+                            minLength: { value: 5, message: "Too short" },
+                            pattern: {
+                                value: /^[a-zA-Z0-9\s,.-]+$/,
+                                message: "Only letters, numbers, spaces, , . - allowed",
+                            }
+                        })} type="text" id="address" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
                     </div>
                     <div className="flex flex-col gap-[8px]">
-                        <label htmlFor="number" className="font-[275] text-[#FFFFFF] text-[1.4rem] leading-[100%]">Phone Number</label>
-                        <input {...register("Number")} type="text" id="number" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
+                        <label htmlFor="number" className="font-[275] text-[#FFFFFF] text-[1.4rem] leading-[100%] flex justify-between">
+                            Phone Number
+                            {errors.Number && (<span className="text-[red] text-[1.2rem]!">{typeof errors.Number.message === "string" && errors.Number.message}</span>)}
+                        </label>
+                        <input {...register("Number", {
+                            required: "Phone Number is required",
+                            pattern: {
+                                value: /^(\d\s?){9,15}$/,
+                                message: "Enter a valid phone number",
+                            }
+                        })} type="text" id="number" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
                     </div>
                     <div className="flex flex-col gap-[8px]">
-                        <label htmlFor="amount" className="font-[275] text-[#FFFFFF] text-[1.4rem] leading-[100%]">Amount</label>
-                        <input {...register("Amount")} type="text" id="amount" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
+                        <label htmlFor="amount" className="font-[275] text-[#FFFFFF] text-[1.4rem] leading-[100%] flex justify-between">
+                            Amount
+                            {errors.Amount && (<span className="text-[red] text-[1.2rem]!">{typeof errors.Amount.message === "string" && errors.Amount.message}</span>)}
+                        </label>
+                        <input {...register("Amount", {
+                            required: "Amount is required",
+                            pattern: {
+                                value: /^\d+₾$/,
+                                message: "Enter amount like '59₾'",
+                            }
+                        })} type="text" id="amount" className="w-[350px] font-[275] text-[#FFFFFF] text-[1.2rem] leading-[100%] bg-[#343434] rounded-[4px] outline-none p-[5px_12px]" />
                     </div>
                     {getRole() === "admin" &&
                         <div className="flex flex-col gap-[8px]">
@@ -73,7 +126,7 @@ export default function EditForm() {
                     }
                     <div className="flex justify-center">
                         <div className="flex items-center gap-[6px]">
-                            <button onClick={() => handleSaveForm(status)} className="bg-[#585858] rounded-[6px] p-[8px_32px] font-[300] text-[#FFFFFF] text-[1.4rem] leading-[100%] cursor-pointer">Save</button>
+                            <button type="submit" className="bg-[#585858] rounded-[6px] p-[8px_32px] font-[300] text-[#FFFFFF] text-[1.4rem] leading-[100%] cursor-pointer">Save</button>
                             <button onClick={() => {
                                 setShowForm(false)
                                 setShowChangeStatus(false)

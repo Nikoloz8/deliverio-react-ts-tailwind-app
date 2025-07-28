@@ -1,9 +1,12 @@
+import { useEffect } from "react"
 import { useNavigate, useOutletContext, useParams } from "react-router-dom"
 
 export default function Signup() {
-    const { handleSubmit, register, watch, reset, errors } = useOutletContext<TForm>()
+    const { handleSubmit, register, watch, reset, errors, clearErrors } = useOutletContext<TForm>()
 
-    console.log(errors)
+    useEffect(() => {
+        clearErrors()
+    }, [])
 
     const navigate = useNavigate()
 
@@ -91,9 +94,9 @@ export default function Signup() {
                     <input type="text" {...register("contactInfo", {
                         required: "Contact info is required",
                         pattern: {
-                            value: /^[0-9]{9,15}$/,
-                            message: "Enter a valid phone number",
-                        },
+                            value: /^(\d\s?){9,15}$/,
+                            message: "Enter a valid phone number (digits and optional spaces)",
+                        }
                     })} id="password" className="w-[100%] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! p-[8px_16px] outline-none rounded-[5px] border-[0.7px] border-solid border-[#0033081F] bg-[#111111]" />
                 </div>
                 <button type="submit" className={`p-[12px_24px] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! bg-[#251B03] rounded-[8px] cursor-pointer`}>Sign Up</button>

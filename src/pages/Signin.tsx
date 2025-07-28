@@ -1,15 +1,19 @@
 import { useNavigate, useOutletContext } from "react-router-dom"
 import index from "../utils"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Signin() {
 
-  const { handleSubmit, register, watch, errors } = useOutletContext<TForm>()
+  const { handleSubmit, register, watch, errors, clearErrors } = useOutletContext<TForm>()
   const [notFoundError, setNotFoundError] = useState(1)
 
   const { getRole } = index()
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    clearErrors()
+  }, [])
 
   const handleSignIn = () => {
     if (!localStorage.getItem("users")) {
