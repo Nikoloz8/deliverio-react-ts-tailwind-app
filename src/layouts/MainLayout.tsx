@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 export default function Layout() {
 
 
-    const { register, watch, handleSubmit, reset, formState } = useForm()
+    const { register, watch, handleSubmit, reset, formState: { errors } } = useForm()
 
     useEffect(() => {
         const users = localStorage.getItem('users')
@@ -31,7 +31,7 @@ export default function Layout() {
         <>
             <div className='flex flex-col bg-[#000000] min-h-[100vh]'>
                 <Header />
-                <Outlet context={{ register, watch, handleSubmit, reset, formState }} />
+                <Outlet context={{ register, watch, handleSubmit, reset, errors }} />
             </div>
         </>
     )

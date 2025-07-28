@@ -80,7 +80,7 @@ export default function ManagePackages() {
                                 </div>
                             </td>
                             <td className={`whitespace-nowrap flex justify-center mx-auto relative`}>
-                                <div onClick={() => showCouriers === i ? setShowCouriers(-1) : setShowCouriers(i)} className={`${getRole() !== "courier" && `rounded-[8px] ${e.კურიერი === "None" ? "bg-transparent! border-[1px] border-solid border-[#343434]" : "bg-[#343434]"} cursor-pointer items-center text-[#FFFFFF]`} font-[300] text-[1.4rem] leading-[100%] text-[#B8B8B8] w-[100px] mt-[7px] mb-[8px] p-[6px_24px_9px_24px] flex gap-[4px] justify-center`}>
+                                <div onClick={getRole() !== "courier" ? (() => showCouriers === i ? setShowCouriers(-1) : setShowCouriers(i)) : () => {}} className={`${getRole() !== "courier" && `rounded-[8px] ${e.კურიერი === "None" ? "bg-transparent! border-[1px] border-solid border-[#343434]" : "bg-[#343434]"} cursor-pointer items-center text-[#FFFFFF]`} font-[300] text-[1.4rem] leading-[100%] text-[#B8B8B8] w-[100px] mt-[7px] mb-[8px] p-[6px_24px_9px_24px] flex gap-[4px] justify-center`}>
                                     <h6>{e.კურიერი}</h6>
                                     <img className={`${getRole() === "courier" && "hidden!"}`} src="/images/Home/Polygon 1 (1).svg" alt="" />
                                 </div>

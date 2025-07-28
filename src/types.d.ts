@@ -14,7 +14,7 @@ type TForm = {
     watch: UseFormWatch<FieldValues>
     handleSubmit: UseFormHandleSubmit<FieldValues, FieldValues>
     reset: UseFormReset<FieldValues>
-    formState: FormState<FieldValues>
+    errors: FieldErrors<FieldValues>
 }
 
 type TPanelsLayoutOutletContext = {
