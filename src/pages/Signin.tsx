@@ -1,4 +1,4 @@
-import { useNavigate, useOutletContext } from "react-router-dom"
+import { useOutletContext } from "react-router-dom"
 import index from "../utils"
 import { useEffect, useState } from "react"
 
@@ -7,37 +7,12 @@ export default function Signin() {
   const { handleSubmit, register, watch, errors, clearErrors } = useOutletContext<TForm>()
   const [notFoundError, setNotFoundError] = useState(1)
 
-  const { getRole } = index()
-
-  const navigate = useNavigate()
+  const { handleSignIn } = index({ setNotFoundError, watch })
 
   useEffect(() => {
     clearErrors()
   }, [])
 
-  const handleSignIn = () => {
-    if (!localStorage.getItem("users")) {
-      localStorage.setItem("users", "[]")
-    }
-
-    const parsedUsers = JSON.parse(localStorage.getItem("users")!)
-    for (let i = 0; i < parsedUsers.length; i++) {
-      if ((parsedUsers[i].email === watch("email/phone") || parsedUsers[i].contactInfo === watch("email/phone")) && getRole() === parsedUsers[i].role) {
-        if (parsedUsers[i].password === watch("password")) {
-          console.log("User signed in:", parsedUsers[i])
-          navigate(`/panels/${parsedUsers[i].role}/${getRole() === "admin" ? "Store Orders" : getRole() === "courier" ? "My Packages" : "My Orders"}`)
-          setNotFoundError(1)
-          return
-        } else {
-          console.error("Incorrect Credentials")
-          setNotFoundError(2)
-          return
-        }
-      } else {
-        setNotFoundError(0)
-      }
-    }
-  }
 
   return (
     <div className={`flex flex-col ${notFoundError !== 1 ? "gap-[30px]" : "gap-[50px]"} items-center p-[70px]`}>

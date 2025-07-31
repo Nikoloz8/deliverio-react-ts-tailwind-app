@@ -11,7 +11,7 @@ export default function StoreOrders() {
     const navigate = useNavigate()
     const location = useLocation().pathname
 
-    const {getRole} = index()
+    const {getRole} = index({})
 
     return (
         <div className="p-[20px] rounded-[6px] bg-[#111111] mt-[24px]">

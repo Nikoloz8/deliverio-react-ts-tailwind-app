@@ -7,7 +7,7 @@ export default function Navigation() {
     const courierPanels = ["My Packages", "Map"]
     const storePanels = ["My Orders", "Upload Order"]
 
-    const { getRole } = index()
+    const { getRole } = index({})
     const role = getRole()
 
     const forRender = () => {

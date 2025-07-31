@@ -1,4 +1,5 @@
-import { useNavigate, useOutletContext, useParams } from "react-router-dom"
+import { useOutletContext, useParams } from "react-router-dom"
+import index from "../../utils"
 
 export default function DeleteTab() {
 
@@ -8,15 +9,9 @@ export default function DeleteTab() {
     const { orderIndex } = useParams()
     const order = orders.find((_e: any, i: number) => i == Number(orderIndex))
 
-    const navigate = useNavigate()
+    const { handleDelete } = index({ setOrders, showDelete, setShowDelete, order, orders })
 
-    const handleDelete = () => {
-        const newOrders = [...orders].filter((e) => e !== order)
-        localStorage.setItem("orders", JSON.stringify(newOrders))
-        setOrders(newOrders)
-        navigate("/panels/admin/Store Orders")
-        setShowDelete(!showDelete)
-    }
+
 
     return (
         <div className={`fixed transition-all duration-1000 p-[16px_32px_32px_24px] bg-[#111111] rounded-[8px] left-1/2 -translate-x-1/2 -translate-y-1/2 top-[-200px] flex flex-col gap-[32px] shadow-[0_0_4px_0_#00000040] ${showDelete && "top-1/2!"}`}>

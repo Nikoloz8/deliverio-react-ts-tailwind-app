@@ -18,6 +18,22 @@ type TForm = {
     clearErrors: UseFormClearErrors<FieldValues>
 }
 
+type TIndex = Partial<{
+    watch: UseFormWatch<FieldValues>
+    role: string
+    reset: UseFormReset<FieldValues>
+    showDelete: boolean
+    setShowDelete: React.Dispatch<React.SetStateAction<boolean>>
+    setOrders: React.Dispatch<React.SetStateAction<any[]>>
+    order: any
+    orders: any[]
+    setShowForm: React.Dispatch<React.SetStateAction<boolean>>
+    setShowChangeStatus: React.Dispatch<React.SetStateAction<boolean>>
+    setShowStatus: React.Dispatch<React.SetStateAction<number>>
+    setFileName: React.Dispatch<React.SetStateAction<string>>
+    setNotFoundError: React.Dispatch<React.SetStateAction<number>>
+}>
+
 type TPanelsLayoutOutletContext = {
     orders: any[]
     setOrders: React.Dispatch<React.SetStateAction<any[]>>

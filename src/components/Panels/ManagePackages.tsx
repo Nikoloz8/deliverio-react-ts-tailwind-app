@@ -9,40 +9,9 @@ export default function ManagePackages() {
 
     const location = useLocation().pathname
 
-    const getCouriers = () => {
-        const users = localStorage.getItem("users")
-        if (!users) return
-        const parsedUsers = JSON.parse(users)
-        const couriers = []
-        for (let i = 0; i < parsedUsers.length; i++) {
-            if (parsedUsers[i].role === "courier") {
-                couriers.push(parsedUsers[i])
-            }
-        }
-        return couriers
-    }
+    const { getCouriers, handleChangeCourier, getRole, handleChangeOrderStatus } = index({ setOrders, setShowStatus })
 
     const couriers = getCouriers()
-
-
-
-    const handleChangeCourier = (courier: string, ind: number) => {
-        const orders = JSON.parse(localStorage.getItem("orders")!)
-        const newOrders = orders.map((e: any, i: number) => i === ind ? { ...orders[i], კურიერი: courier } : e)
-        setOrders(newOrders)
-        localStorage.setItem("orders", JSON.stringify(newOrders))
-    }
-
-    const handleChangeOrderStatus = (status: string, ind: number) => {
-        const orders = JSON.parse(localStorage.getItem("orders")!)
-        const newOrders = orders.map((e: any, i: number) => i === ind ? { ...orders[i], "კურიერის სტატუსი": status } : e)
-        setOrders(newOrders)
-        console.log(newOrders)
-        localStorage.setItem("orders", JSON.stringify(newOrders))
-        setShowStatus(-1)
-    }
-
-    const { getRole } = index()
 
     return (
         <div className="p-[20px] rounded-[6px] bg-[#111111] mt-[24px]">

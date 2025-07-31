@@ -1,5 +1,6 @@
 import { useEffect } from "react"
-import { useNavigate, useOutletContext, useParams } from "react-router-dom"
+import { useOutletContext, useParams } from "react-router-dom"
+import index from "../utils"
 
 export default function Signup() {
     const { handleSubmit, register, watch, reset, errors, clearErrors } = useOutletContext<TForm>()
@@ -8,30 +9,10 @@ export default function Signup() {
         clearErrors()
     }, [])
 
-    const navigate = useNavigate()
 
     const { role } = useParams()
-    const handleSignUp = () => {
 
-        const user = {
-            id: Math.random(),
-            name: watch("name"),
-            email: watch("email"),
-            password: watch("password"),
-            contactInfo: watch("contactInfo"),
-            role
-        }
-
-        const users = localStorage.getItem("users")
-        if (!users) {
-            localStorage.setItem("users", "[]")
-        }
-        const parsedUsers = JSON.parse(users!)
-        parsedUsers.push(user)
-        localStorage.setItem("users", JSON.stringify(parsedUsers))
-        navigate("/")
-        reset()
-    }
+    const { handleSignUp } = index({ watch, role, reset })
 
     return (
         <div className="flex flex-col gap-[50px] items-center p-[70px]">

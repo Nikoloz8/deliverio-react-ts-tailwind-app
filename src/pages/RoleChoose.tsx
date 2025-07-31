@@ -3,7 +3,7 @@ import index from "../utils"
 
 export default function RoleChoose() {
 
-    const { HandleGetSL } = index()
+    const { HandleGetSL } = index({})
     const navigate = useNavigate()
 
     return <>

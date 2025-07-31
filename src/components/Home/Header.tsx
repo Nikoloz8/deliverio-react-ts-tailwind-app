@@ -6,7 +6,7 @@ export default function Header() {
 
     const { HeaderFont } = tailwind()
     const location = useLocation().pathname
-    const { HandleLoginButton, HandleSignUpButton } = index()
+    const { HandleLoginButton, HandleSignUpButton } = index({})
     const { role } = useParams()
     const navigate = useNavigate()
 

@@ -11,7 +11,6 @@ import PanelsLayout from './layouts/PanelsLayout'
 import StoreOrders from './components/Panels/StoreOrders'
 import ManagePackages from './components/Panels/ManagePackages'
 import GPS from './components/Panels/GPS'
-import Map from './components/Panels/Map'
 import UploadOrder from './components/Panels/UploadOrder'
 import OrderDetails from './components/Panels/OrderDetails'
 
@@ -67,7 +66,7 @@ const router = createBrowserRouter([
         path: '/panels/courier/My Packages'
       },
       {
-        element: <Map />,
+        element: <GPS />,
         path: '/panels/courier/Map'
       },
       {

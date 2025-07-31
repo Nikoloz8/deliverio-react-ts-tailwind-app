@@ -23,18 +23,11 @@ export default function EditForm() {
     }, [])
     const { setOrders, showForm, setShowForm, showChangeStatus, setShowChangeStatus } = useOutletContext<TPanelsLayoutOutletContext>()
 
-    const { getRole } = index()
+    const { getRole } = index({})
 
     const [status, setStatus] = useState(order.სტატუსი)
 
-    const handleSaveForm = (status: string) => {
-        const changedOrder = { ...order, მყიდველი: watch().Buyer, მაღაზია: watch().Store, მისამართი: watch().Address, "ტელეფონის ნომერი": watch().Number, "რაოდენობა * ფასი": watch().Amount, სტატუსი: status }
-        const newOrders = orders.map((e: any) => e === order ? changedOrder : e)
-        setOrders(newOrders)
-        localStorage.setItem("orders", JSON.stringify(newOrders))
-        setShowForm(false)
-        setShowChangeStatus(false)
-    }
+    const { handleSaveForm } = index({ watch, order, orders, setOrders, setShowForm, setShowChangeStatus })
 
     return (
         <>

@@ -11,7 +11,7 @@ export default function OrderDetails() {
     const order = orders.find((_e: any, i: number) => i == Number(orderIndex))
     const navigate = useNavigate()
     const { showForm, setShowForm, showDelete, setShowDelete } = useOutletContext<TPanelsLayoutOutletContext>()
-    const { getRole } = index()
+    const { getRole } = index({})
 
     return (
         <div>
