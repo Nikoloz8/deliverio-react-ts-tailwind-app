@@ -1,5 +1,3 @@
-import 'leaflet/dist/leaflet.css';
-
 export default function GPS() {
     return (
         <div
