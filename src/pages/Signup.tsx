@@ -55,7 +55,7 @@ export default function Signup() {
                     })} className="w-[100%] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! outline-none p-[8px_16px] rounded-[5px] border-[0.7px] border-solid border-[#0033081F] bg-[#111111]" />
                 </div>
                 <div className="flex flex-col gap-[8px] w-full">
-                    <label htmlFor="password" className="text-[1.4rem] font-[300] leading-[100%] text-[#FFFFFF] flex justify-between">
+                    <label htmlFor="email" className="text-[1.4rem] font-[300] leading-[100%] text-[#FFFFFF] flex justify-between">
                         Email
                         {errors.email && (<span className="text-[red]">{errors.email.message}</span>)}
                     </label>
@@ -65,14 +65,14 @@ export default function Signup() {
                             value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                             message: "Invalid email address",
                         }
-                    })} id="password" className="w-[100%] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! p-[8px_16px] outline-none rounded-[5px] border-[0.7px] border-solid border-[#0033081F] bg-[#111111]" />
+                    })} id="email" className="w-[100%] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! p-[8px_16px] outline-none rounded-[5px] border-[0.7px] border-solid border-[#0033081F] bg-[#111111]" />
                 </div>
                 <div className="flex flex-col gap-[8px] w-full">
                     <label htmlFor="password" className="text-[1.4rem] font-[300] leading-[100%] text-[#FFFFFF] flex justify-between">
                         Password
                         {errors.password && (<span className="text-[red]">{errors.password.message}</span>)}
                     </label>
-                    <input type="text" {...register("password", {
+                    <input type="password" {...register("password", {
                         required: "Password is required",
                         minLength: {
                             value: 8,
@@ -87,7 +87,7 @@ export default function Signup() {
                     } id="password" className="w-[100%] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! p-[8px_16px] outline-none rounded-[5px] border-[0.7px] border-solid border-[#0033081F] bg-[#111111]" />
                 </div>
                 <div className="flex flex-col gap-[8px] w-full">
-                    <label htmlFor="password" className="text-[1.4rem] font-[300] leading-[100%] text-[#FFFFFF] flex justify-between">
+                    <label htmlFor="contactInfo" className="text-[1.4rem] font-[300] leading-[100%] text-[#FFFFFF] flex justify-between">
                         Contact Info
                         {errors.contactInfo && (<span className="text-[red]">{errors.contactInfo.message}</span>)}
                     </label>
@@ -97,7 +97,7 @@ export default function Signup() {
                             value: /^(\d\s?){9,15}$/,
                             message: "Enter a valid phone number (digits and optional spaces)",
                         }
-                    })} id="password" className="w-[100%] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! p-[8px_16px] outline-none rounded-[5px] border-[0.7px] border-solid border-[#0033081F] bg-[#111111]" />
+                    })} id="contactInfo" className="w-[100%] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! p-[8px_16px] outline-none rounded-[5px] border-[0.7px] border-solid border-[#0033081F] bg-[#111111]" />
                 </div>
                 <button type="submit" className={`p-[12px_24px] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! bg-[#251B03] rounded-[8px] cursor-pointer`}>Sign Up</button>
             </form>

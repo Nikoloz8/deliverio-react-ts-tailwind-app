@@ -60,13 +60,13 @@ export default function ManagePackages() {
                         <th className="rounded-r-[6px] p-[12px_0] opacity-0">placeholder</th>
                     </tr>
                 </thead>
-                <tbody className="">
+                <tbody>
                     <tr><td className="h-[13px]"></td></tr>
                     {pageOrders.map((e, i) => {
                         return <tr key={i} className={`border-b-[0.1px] ${i == 5 && "border-none!"} rounded-[8px_8px_0_0] border-solid border-[#FFFFFF]`}>
                             <td onClick={() => showStatus === i ? setShowStatus(-1) : setShowStatus(i)} className={`border-solid border-[#B6B6B633] relative p-[15px_0_13px_13px] font-[500] text-[1.4rem] leading-[100%] text-[#FFFFFF] ${e["კურიერის სტატუსი"] === 'Completed' ? "bg-[#00AB55]" : e["კურიერის სტატუსი"] === 'Denied Once' ? "bg-[#FF9900]" : e["კურიერის სტატუსი"] === 'Denied Twice' ? "bg-[#FF0000]" : e["კურიერის სტატუსი"] === 'To Deliver' ? "bg-[#999696]" : ""}  ${i === 0 ? "rounded-tl-[8px]" : i === 5 ? "rounded-bl-[8px]" : ""} text-left`}>
                                 #{filteredOrders.findIndex(item => item === e)}
-                                <div className={`absolute transition-all duration-500 left-[100px] z-10 p-[16px_20px] bg-[#111111] border-[1px] top-0 border-solid border-[#363636] rounded-[8px] flex flex-col gap-[16px] shadow-[0_0_4px_0_#00000040] ${showStatus !== i && "hidden"}`}>
+                                <div className={`absolute transition-all duration-500 left-[100px] p-[16px_20px] bg-[#111111] border-[1px] top-0 border-solid border-[#363636] rounded-[8px] flex flex-col gap-[16px] shadow-[0_0_4px_0_#00000040] z-20 ${showStatus !== i && "hidden"}`}>
                                     <h3 className="font-[275] w-[190px] text-center text-[1.8rem] leading-[100%] text-[#FFFFFF]">Change Order Status</h3>
                                     <div className="flex flex-col gap-[8px] w-[100%] items-center">
                                         <button onClick={() => handleChangeOrderStatus("Completed", filteredOrders.findIndex(item => item === e))} className={`font-[300] w-[110px] py-[8px] bg-[#0C3F25] cursor-pointer text-[#00AB55] rounded-[28px] text-[1.2rem] leading-[100%]`}>Delivered</button>

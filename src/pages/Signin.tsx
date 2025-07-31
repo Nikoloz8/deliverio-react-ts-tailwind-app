@@ -62,7 +62,7 @@ export default function Signin() {
             Password
             {errors.password && (<span className="text-[red]">{errors.password.message}</span>)}
           </label>
-          <input type="text" {...register("password", {
+          <input type="password" {...register("password", {
             required: "Password is required"
           })} id="password" className="w-[100%] font-[300] text-[1.4rem] leading-[100%] text-[#FF9900]! p-[8px_16px] outline-none rounded-[5px] border-[0.7px] border-solid border-[#0033081F] bg-[#111111]" />
         </div>

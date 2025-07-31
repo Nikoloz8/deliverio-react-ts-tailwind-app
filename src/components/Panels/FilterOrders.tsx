@@ -8,13 +8,13 @@ export default function FilterOrders() {
 
     return (
         <>
-            <div className={`absolute transition-all duration-500 max-w-[200px] w-[200px] left-[-210px] p-[14px] bg-[#292929] border-[0.8px] border-solid border-[#585858] rounded-[8px] flex flex-col gap-[12px] shadow-[0_0_4px_0_#00000040] ${!showFilters && "opacity-0"}`}>
+            <div className={`absolute transition-all duration-500 max-w-[200px] w-[200px] left-[-210px] p-[14px] bg-[#292929] border-[0.8px] border-solid border-[#585858] rounded-[8px] flex flex-col gap-[12px] shadow-[0_0_4px_0_#00000040] ${!showFilters && "opacity-0 pointer-events-none"}`}>
                 <h5 className="font-[300] pl-[20px] text-[1.4rem] leading-[100%] text-[#ADADAD]">Store</h5>
                 {storesArr.map((e, i) => {
                     return <h5 key={i} onClick={() => {
                         filterStore.includes(e) ? setFilterStore(filterStore.filter((el: string) => el !== e)) : setFilterStore([...filterStore, e])
                         setCountPages(1)
-                        }} className={`font-[300] cursor-pointer text-[1.4rem] flex gap-[6px] leading-[100%] text-[#FFFFFF] ${!filterStore.includes(e) && "pl-[20px]"}`}>
+                    }} className={`font-[300] cursor-pointer text-[1.4rem] flex gap-[6px] leading-[100%] text-[#FFFFFF] ${!filterStore.includes(e) && "pl-[20px]"}`}>
                         {filterStore.includes(e) && <img src="/images/Home/Group 40674.svg" />}
                         {e}
                     </h5>
